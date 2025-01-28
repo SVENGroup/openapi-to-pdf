@@ -2,6 +2,8 @@ openapi: "3.0.3"
 info:
   title: "App Name"
   version: 1.0.0
+  license:
+    name: PROPRIETARY
 servers:
   - url: "http://localhost:8000/api"
   - url: "https://dev.example.com/api"

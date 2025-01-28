@@ -1,19 +1,13 @@
-import validate from "@/validate";
+import toMarkdown from "./markdown";
 
 export async function toHtml(
   oas: string): Promise<string> {
 
   // parse oas to markdown
-  toMarkdown(oas);
+  const markdown_str = await toMarkdown(oas);
+
+  console.log(markdown_str);
 
   return "";
 }
 
-export async function toMarkdown(
-  oas: string
-): Promise<string> {
-
-  await validate(oas);
-
-  return "";
-}
