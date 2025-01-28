@@ -1,0 +1,22 @@
+{
+  "name": "openapi-to-pdf",
+  "version": "1.0.0",
+  "description": "Create PDF API reference documentation from OpenAPI 3.0 specification YAML files.",
+  "main": "n",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "n"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SVENGroup/openapi-to-pdf.git"
+  },
+  "author": "The SVEN Group",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SVENGroup/openapi-to-pdf/issues"
+  },
+  "homepage": "https://github.com/SVENGroup/openapi-to-pdf#readme"
+}
