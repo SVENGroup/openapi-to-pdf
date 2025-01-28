@@ -1,0 +1,184 @@
+openapi: "3.0.3"
+info:
+  title: "App Name"
+servers:
+  - url: "http://localhost:8000/api"
+  - url: "https://dev.example.com/api"
+  # Add all other base URLs here
+security:
+  - ApiKey: []
+  # Modify based on authentication process implemented for API. See https://swagger.io/docs/specification/v3_0/authentication/
+components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+
+  schemas:
+    # ENUMS
+    UserStatus:
+      type: string
+      enum:
+        - invited
+        - active
+        - suspended
+
+    # RESOURCE OBJECTS
+    User:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - email
+        - status
+        - role_id
+        - name
+      properties:
+        id:
+          type: integer
+          nullable: false
+          readOnly: true
+        first_name:
+          type: string
+          nullable: false
+          readOnly: false
+          maxLength: 255
+          example: John
+        last_name:
+          type: string
+          nullable: false
+          readOnly: false
+          maxLength: 255
+          example: Doe
+        email:
+          type: string
+          format: email
+          nullable: false
+          readOnly: false
+          maxLength: 255
+        status:
+          allOf:
+            - $ref: "#/components/schemas/UserStatus"
+          nullable: false
+          readOnly: true
+        role_id:
+          type: integer
+          nullable: false
+          readOnly: false
+        name:
+          type: string
+          nullable: false
+          readOnly: true
+          example: John Doe
+
+    # RESPONSE BODY SCHEMAS
+    ValidationErrorResponse:
+      type: object
+      required:
+        - message
+        - success
+        - errors
+      properties:
+        message:
+          type: string
+          example: The {attribute} field is required.
+        success:
+          type: boolean
+          example: false
+        errors:
+          type: object
+          properties:
+            "{attribute}":
+              type: array
+              items:
+                type: string
+
+  responses:
+    ValidationErrorResponse:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ValidationErrorResponse"
+    NotFoundErrorResponse:
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: Not Found
+
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create a User
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: application/json
+        - in: header
+          name: Accept
+          schema:
+            type: string
+            example: application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                  - success
+                  - data
+                properties:
+                  message:
+                    type: string
+                    example: Sucessfully created User.
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: "#/components/schemas/User"
+        "422":
+          $ref: "#/components/responses/ValidationErrorResponse"
+  /users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: Get a User
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                  - success
+                  - data
+                properties:
+                  message:
+                    type: string
+                    example: Sucessfully fetched User.
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFoundErrorResponse"

@@ -1,0 +1,33 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.php]
+indent_size = 4
+
+[*.json]
+indent_size = 4
+
+[*.{html,blade.php,vue,jsx,tsx}]
+indent_size = 2
+
+[*.{css,scss}]
+indent_size = 2
+
+[*.{js,ts}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[docker-compose.yml]
+indent_size = 4
