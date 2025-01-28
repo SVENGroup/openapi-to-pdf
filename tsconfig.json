@@ -1,10 +1,14 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "module": "CommonJS",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
         "declaration": true,
-        "outDir": "dist",
+        "outDir": "./dist",
         "strict": true,
+        "types": [
+            "node"
+        ],
         "baseUrl": "./src",
         "paths": {
             "@/*": [
@@ -21,4 +25,8 @@
     "include": [
         "src/**/*"
     ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }

@@ -1,6 +1,7 @@
 openapi: "3.0.3"
 info:
   title: "App Name"
+  version: 1.0.0
 servers:
   - url: "http://localhost:8000/api"
   - url: "https://dev.example.com/api"
@@ -97,11 +98,13 @@ components:
 
   responses:
     ValidationErrorResponse:
+      description: Validation Error Response
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ValidationErrorResponse"
     NotFoundErrorResponse:
+      description: Not Found Error Response
       content:
         text/plain:
           schema:
@@ -133,6 +136,7 @@ paths:
               $ref: "#/components/schemas/User"
       responses:
         "200":
+          description: Successful Create User Response
           content:
             application/json:
               schema:
@@ -164,6 +168,7 @@ paths:
             type: integer
       responses:
         "200":
+          description: Successful Get User Response
           content:
             application/json:
               schema:
