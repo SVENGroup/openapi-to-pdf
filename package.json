@@ -1,22 +1,41 @@
 {
-  "name": "openapi-to-pdf",
-  "version": "1.0.0",
-  "description": "Create PDF API reference documentation from OpenAPI 3.0 specification YAML files.",
-  "main": "n",
-  "directories": {
-    "doc": "docs"
-  },
-  "scripts": {
-    "test": "n"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SVENGroup/openapi-to-pdf.git"
-  },
-  "author": "The SVEN Group",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SVENGroup/openapi-to-pdf/issues"
-  },
-  "homepage": "https://github.com/SVENGroup/openapi-to-pdf#readme"
+    "name": "openapi-to-pdf",
+    "version": "1.0.0",
+    "description": "Create PDF API reference documentation from OpenAPI 3.0 specification YAML files.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SVENGroup/openapi-to-pdf.git"
+    },
+    "author": "The SVEN Group",
+    "license": "MIT",
+    "homepage": "https://github.com/SVENGroup/openapi-to-pdf#readme",
+    "bugs": {
+        "url": "https://github.com/SVENGroup/openapi-to-pdf/issues"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "bin": {
+        "openapi-to-pdf": "dist/cli.js"
+    },
+    "scripts": {
+        "build": "tsc && tsc-alias",
+        "lint": "npx eslint",
+        "lint:fix": "npx eslint --fix"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.19.0",
+        "@types/node": "^22.12.0",
+        "@typescript-eslint/eslint-plugin": "^8.22.0",
+        "@typescript-eslint/parser": "^8.22.0",
+        "eslint": "^9.19.0",
+        "globals": "^15.14.0",
+        "ts-node": "^10.9.2",
+        "tsc-alias": "^1.8.10",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.22.0"
+    },
+    "dependencies": {
+        "commander": "^13.1.0",
+        "tsconfig-paths": "^4.2.0"
+    }
 }
