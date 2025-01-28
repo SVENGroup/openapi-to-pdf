@@ -1,0 +1,4 @@
+#!/bin/bash
+
+composer lint
+npm run lint
