@@ -34,7 +34,7 @@ The following security schemes are used by this API for authentication and autho
 
 (check security then find in security schema, group by type)
 
-## API Keys Authentication?
+## API Key Authentication?
 
 This API is secured through API Keys which you may obtain separately.
 
@@ -43,9 +43,9 @@ This API is secured through API Keys which you may obtain separately.
 To authenticate requests, include `X-Api-Key` as a request header. {{description}}
 
 ```http
-GET /example HTTP/1.1
+GET /example
 Host: example.com
-X-Api-Key: kjanWA*2j3Dv94823s$asjWU
+X-Api-Key: SAMPLE-API-KEY-a29@102&3djSF9
 ```
 
 ### {{Api Cookie}}
