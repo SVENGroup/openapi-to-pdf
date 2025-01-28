@@ -4,6 +4,11 @@ info:
   version: 1.0.0
   license:
     name: PROPRIETARY
+    url: https://svengroup.com
+  contact:
+    name: Lance Villacin
+    url: https://svengroup.com
+    email: refreshing@svengroup.com
 servers:
   - url: "http://localhost:8000/api"
   - url: "https://dev.example.com/api"

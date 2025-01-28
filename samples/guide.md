@@ -26,7 +26,7 @@ The following servers may be used for this API.
 
 | URL                | Description | Variables                                                  |
 | ------------------ | ----------- | ---------------------------------------------------------- |
-| https://google.com | -           | <ul><li>var: options: a,b,c; desc; default: abc;</li></ul> |
+| https://google.com | -           | <ul><li>**var**: default: abc; options: a,b,c;</li></ul> |
 
 # Security?
 
@@ -94,7 +94,6 @@ Authorization: Bearer dXNlcjE6cGFzc3dvcmQxMjM=
 ## OAuth2 Authentication
 
 to follow
-
 
 # Endpoints
 

@@ -56,3 +56,8 @@ npm run test # frontend tests
 
 ## References
 - [Technical Documentation](./docs)
+
+## Not included
+- Oauth2
+- openidconnect
+

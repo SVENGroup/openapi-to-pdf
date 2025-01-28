@@ -50,17 +50,17 @@ function generateContactMarkdown(info: OpenAPIV3.Document["info"]): string {
     info_str += "\n\n";
 
     if (info.contact.name) {
-      info_str += `Name: ${info.contact.name}`;
+      info_str += `- Name: ${info.contact.name}`;
       info_str += "\n";
     }
 
     if (info.contact.email) {
-      info_str += `Email: [${info.contact.email}](mailto:${info.contact.email})`;
+      info_str += `- Email: [${info.contact.email}](mailto:${info.contact.email})`;
       info_str += "\n";
     }
 
     if (info.contact.url) {
-      info_str += `URL: [${info.contact.url}](${info.contact.url})`
+      info_str += `- URL: [${info.contact.url}](${info.contact.url})`
       info_str += "\n";
     }
 
@@ -73,6 +73,9 @@ function generateContactMarkdown(info: OpenAPIV3.Document["info"]): string {
 function generateLicenseMarkdown(info: OpenAPIV3.Document["info"]): string {
   let info_str = "";
   if (info.license?.name) {
+    info_str += "## License"
+    info_str += "\n\n";
+
     info_str += `This API is under a ${info.license.name} license.`
     info_str += "\n\n";
 
