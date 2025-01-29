@@ -80,6 +80,54 @@ components:
           nullable: false
           readOnly: true
           example: John Doe
+        data:
+          type: object
+          properties:
+            a:
+              type: string
+            arr:
+              type: array
+              items:
+                type: object
+                properties:
+                  prop:
+                    type: integer
+        arr:
+          type: array
+          items:
+            type: string
+        all_of:
+          nullable: true
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: integer
+                prop:
+                  type: string
+            - type: object
+              properties:
+                count:
+                  type: integer
+        write_only:
+          type: string
+          writeOnly: true
+        one_of:
+          oneOf:
+            - type: object
+              properties:
+                id:
+                  type: integer
+                  description: "hello world. it can be another `item` here\nlold"
+                prop:
+                  type: string
+            - type: object
+              properties:
+                count:
+                  type: integer
+            - type: string
+              example: hello
+              format: email
 
     # RESPONSE BODY SCHEMAS
     ValidationErrorResponse:
@@ -121,8 +169,6 @@ components:
 paths:
   /users:
     post:
-      tags:
-        - Users
       summary: Create a User
       parameters:
         - in: header
@@ -147,6 +193,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 required:
                   - message
                   - success
@@ -179,6 +226,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 required:
                   - message
                   - success

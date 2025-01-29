@@ -155,4 +155,3 @@ Content-Type: {{application/json}}
 Content-Type: {{text/plain}}
 
 {{`example`}}
-
