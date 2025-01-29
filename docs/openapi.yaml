@@ -22,6 +22,25 @@ components:
       type: apiKey
       name: X-Api-Key
       in: header
+    basicAuth: # <-- arbitrary name for the security scheme
+      type: http
+      scheme: basic
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # optional, arbitrary value for documentation purposes
+    oAuthSample:    # <---- arbitrary name
+      type: oauth2
+      description: This API uses OAuth 2 with the implicit grant flow. [More info](https://api.example.com/docs/auth)
+      flows:
+        implicit:   # <---- OAuth flow(authorizationCode, implicit, password or clientCredentials)
+          authorizationUrl: https://api.example.com/oauth2/authorize
+          scopes:
+            read_pets: read your pets
+            write_pets: modify pets in your account
+    openId: # <--- Arbitrary name for the security scheme. Used to refer to it from elsewhere.
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
 
   schemas:
     # ENUMS
@@ -214,6 +233,9 @@ paths:
       tags:
         - Users
       summary: Get a User
+      security:
+        - oAuthSample:
+            - write_pets
       parameters:
         - in: path
           name: user_id

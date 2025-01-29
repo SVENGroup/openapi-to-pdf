@@ -222,6 +222,8 @@ export function generateOperationMarkdown(
     endpoints_str += "\n\n";
   }
 
+  endpoints_str += generateOperationSecurityMarkdown(h, operation.security);
+
   /** @ts-expect-error we resolve all references */
   endpoints_str += generateParametersMarkdown(h, 'path', operation.parameters);
 
@@ -238,6 +240,35 @@ export function generateOperationMarkdown(
   endpoints_str += generateRequestBodyMarkdown(h, operation.requestBody);
 
   endpoints_str += generateResponsesMarkdown(h, operation.responses);
+
+  return endpoints_str;
+}
+
+export function generateOperationSecurityMarkdown(
+  h: string,
+  security_requirements?: OpenAPIV3.SecurityRequirementObject[]
+): string {
+  if (!security_requirements) {
+    return "";
+  }
+
+  let endpoints_str = "";
+
+  endpoints_str += `${h}### Required Scopes`;
+  endpoints_str += "\n\n";
+
+  endpoints_str += `This endpoint requires the following scopes:\n\n`;
+
+  for (const security_requirement of security_requirements) {
+    for (const security_items of Object.entries(security_requirement)) {
+      for (const security_item of security_items[1]) {
+        endpoints_str += `- \`${security_item}\`\n`;
+      }
+    }
+  }
+
+  endpoints_str += "\n\n";
+
 
   return endpoints_str;
 }
