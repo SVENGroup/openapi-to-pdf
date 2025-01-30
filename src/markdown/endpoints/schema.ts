@@ -88,14 +88,14 @@ export function generateSchemaTableMarkdown(
       )
     }
   } else if (schema.type === 'array') {
-    for (const [key, value] of Object.entries(schema.items!)) {
-      endpoints_str += generateSchemaTableRowMarkdown(
-        key,
-        value,
-        required_properties,
-        display_for
-      )
-    }
+    endpoints_str += "||array|||The root schema is an array.|\n";
+    endpoints_str += generateSchemaTableRowMarkdown(
+      '*',
+      /** @ts-expect-error we resolve all references */
+      schema.items!,
+      required_properties,
+      display_for
+    )
   }
 
 
