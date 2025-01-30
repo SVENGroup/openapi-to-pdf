@@ -3,7 +3,7 @@ import { generateParametersMarkdown, generateRequestBodyMarkdown } from "./reque
 import { generateSchemaMarkdown } from "./schema";
 import { generateResponsesMarkdown } from "./response";
 import { deepMerge } from "@/utils/merge";
-import { getToc, Toc } from "../toc";
+import { generateSubSectionTocMarkdown, getToc, Toc } from "../toc";
 
 const http_methods = [
   'get',
@@ -194,7 +194,7 @@ export function generateOperationsMarkdown(
 
   }
 
-  const toc_markdown = generateOperationsTocMarkdown(operations_toc);
+  const toc_markdown = generateSubSectionTocMarkdown(operations_toc);
 
   return toc_markdown + endpoints_str;
 }
@@ -218,31 +218,13 @@ export function generateUntaggedOperationsMarkdown(
       }
     }
 
-    const toc_markdown = generateOperationsTocMarkdown(operations_toc);
+    const toc_markdown = generateSubSectionTocMarkdown(operations_toc);
 
     const tag_title_markdown = generateTagMarkdown("Uncategorized", tags);
 
     endpoints_str = tag_title_markdown + toc_markdown + endpoints_str;
 
   }
-  return endpoints_str;
-}
-
-export function generateOperationsTocMarkdown(
-  toc: Toc
-): string {
-  let endpoints_str = "";
-
-  if (toc.length > 0) {
-
-    for (const toc_item of toc) {
-      endpoints_str += `- [${toc_item.text}](#${toc_item.slug})\n`;
-    }
-
-    endpoints_str += `\n\n`;
-
-  }
-
   return endpoints_str;
 }
 

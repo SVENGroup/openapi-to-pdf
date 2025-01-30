@@ -54,9 +54,27 @@ export function getToc(md: string): Toc {
   return toc;
 }
 
+export function generateSubSectionTocMarkdown(
+  toc: Toc
+): string {
+  let endpoints_str = "";
+
+  if (toc.length > 0) {
+
+    for (const toc_item of toc) {
+      endpoints_str += `- [${toc_item.text}](#${toc_item.slug})\n`;
+    }
+
+    endpoints_str += `\n\n`;
+
+  }
+
+  return endpoints_str;
+}
+
 function generateSectionTitleMarkdown(toc_item: TocItem): string {
   if (toc_item.level === 1) {
-    return `**${toc_item.text}**<img width="460" height="1">`;
+    return `**${toc_item.text}**<img width="500" height="1">`;
   }
 
   let text = toc_item.text;
@@ -65,7 +83,7 @@ function generateSectionTitleMarkdown(toc_item: TocItem): string {
     text = nestInUnorderedListListItem(text);
   }
 
-  return text;
+  return `${text}`;
 }
 
 function nestInUnorderedListListItem(text: string): string {

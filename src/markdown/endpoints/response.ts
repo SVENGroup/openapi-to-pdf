@@ -1,6 +1,7 @@
 import { getHttpStatusName } from "@/utils/status";
 import { OpenAPIV3 } from "openapi-types";
 import { generateMediaTypeMarkdown } from ".";
+import { generateSubSectionTocMarkdown, getToc, Toc } from "../toc";
 
 export function generateResponsesMarkdown(
   h: string,
@@ -8,28 +9,41 @@ export function generateResponsesMarkdown(
 ): string {
   let endpoints_str = "";
 
-  endpoints_str += `${h}### Responses`;
-  endpoints_str += "\n\n";
+  const responses_title = generateResponsesTitleMarkdown(h);
+
+  let responses_toc: Toc = [];
 
   for (const [code, response] of Object.entries(responses)) {
+
+    const response_title_markdown = generateResponseTitleMarkdown(h, code);
+
+    responses_toc = [...responses_toc, ...getToc(response_title_markdown)];
+
+    endpoints_str += generateResponseTitleMarkdown(h, code);
+
     /** @ts-expect-error we resolve all references */
-    endpoints_str += generateResponseMarkdown(h, code, response);
+    endpoints_str += generateResponseMarkdown(h, response);
   }
+
+  const responses_toc_markdown = generateSubSectionTocMarkdown(responses_toc);
+
+  return responses_title + responses_toc_markdown + endpoints_str;
+}
+
+export function generateResponsesTitleMarkdown(h: string): string {
+  let endpoints_str = "";
+
+  endpoints_str += `${h}### Responses`;
+  endpoints_str += "\n\n";
 
   return endpoints_str;
 }
 
 export function generateResponseMarkdown(
   h: string,
-  code: string,
   response: OpenAPIV3.ResponseObject
 ): string {
   let endpoints_str = "";
-
-  const title = `${code} ${getHttpStatusName(code)}`;
-
-  endpoints_str += `${h}#### \`${title}\``;
-  endpoints_str += "\n\n";
 
   if (response.description) {
     endpoints_str += response.description;
@@ -41,6 +55,17 @@ export function generateResponseMarkdown(
 
   endpoints_str += generateResponseBodyMarkdown(h, response.content);
 
+
+  return endpoints_str;
+}
+
+export function generateResponseTitleMarkdown(h: string, code: string): string {
+  let endpoints_str = "";
+
+  const title = `${code} ${getHttpStatusName(code)}`;
+
+  endpoints_str += `${h}#### \`${title}\``;
+  endpoints_str += "\n\n";
 
   return endpoints_str;
 }
