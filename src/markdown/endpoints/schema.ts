@@ -1,24 +1,25 @@
+import { deepMerge } from "@/utils/merge";
 import { OpenAPIV3 } from "openapi-types";
 
-export const note_keys = [
-  'format',
-  'default',
-  'multipleOf',
-  'maximum',
-  'exclusiveMaximum',
-  'minimum',
-  'exclusiveMinimum',
-  'maxLength',
-  'minLength',
-  'pattern',
-  'maxItems',
-  'minItems',
-  'uniqueItems',
-  'maxProperties',
-  'minProperties',
-  'enum',
-  'nullable',
-]
+export const note_keys: { [key: string]: string } = {
+  'format': 'Format',
+  'default': 'Default',
+  'multipleOf': 'Multiple Of:', // eslint-disable-line @typescript-eslint/naming-convention
+  'maximum': 'Maximum',
+  'exclusiveMaximum': 'Exclusive Maximum', // eslint-disable-line @typescript-eslint/naming-convention
+  'minimum': 'Minimum', // eslint-disable
+  'exclusiveMinimum': 'Exclusive Minimum', // eslint-disable-line @typescript-eslint/naming-convention
+  'maxLength': 'Maximum Length', // eslint-disable-line @typescript-eslint/naming-convention
+  'minLength': 'Mininimum Length', // eslint-disable-line @typescript-eslint/naming-convention
+  'pattern': 'Pattern',
+  'maxItems': 'Maximum Items', // eslint-disable-line @typescript-eslint/naming-convention
+  'minItems': 'Minimum Items', // eslint-disable-line @typescript-eslint/naming-convention
+  'uniqueItems': 'Unique Items', // eslint-disable-line @typescript-eslint/naming-convention
+  'maxProperties': 'Maximum Properties', // eslint-disable-line @typescript-eslint/naming-convention
+  'minProperties': 'Minimum Properties', // eslint-disable-line @typescript-eslint/naming-convention
+  'enum': 'Allowed Values',
+  'nullable': 'Nullable',
+}
 
 export function generateSchemaMarkdown(
   schema: OpenAPIV3.SchemaObject,
@@ -26,6 +27,9 @@ export function generateSchemaMarkdown(
 ): string {
   let endpoints_str = "";
 
+  if (schema.allOf) {
+    schema = handleAllOf(schema);
+  }
 
   if (['object', 'array'].includes(schema.type!)) {
     endpoints_str += generateSchemaTableMarkdown(schema, display_for);
@@ -34,7 +38,6 @@ export function generateSchemaMarkdown(
   }
 
   endpoints_str += "\n\n";
-
 
   return endpoints_str;
 }
@@ -58,8 +61,7 @@ export function generateSchemaBasicTableMarkdown(
   }
 
   // notes
-  const notes_list_md = generateSchemaNotesMarkdown(schema);
-  endpoints_str += `|${notes_list_md}|\n`;
+  endpoints_str += generateSchemaNotesMarkdown(schema);
 
   return endpoints_str;
 }
@@ -107,18 +109,7 @@ export function handleAllOf(
 
   if (schema.allOf) {
     for (const inner_schema of schema.allOf) {
-
-      /** @ts-expect-error we resolve all references */
-      if (schema.properties && inner_schema.properties) {
-        schema = {
-          ...inner_schema, ...schema,
-          /** @ts-expect-error we resolve all references */
-          properties: { ...inner_schema.properties, ...schema.properties }
-        };
-      } else {
-        schema = { ...inner_schema, ...schema };
-      }
-
+      schema = deepMerge(inner_schema, schema);
     }
   }
 
@@ -354,19 +345,17 @@ export function generateSchemaNotesMarkdown(
 
   if (schema) {
 
-    let notes: string[] = [];
+    //let notes: string[] = [];
+    //
+    //if (schema.description) {
+    //  notes = [...notes, schema.description];
+    //}
 
     if (schema.description) {
-      notes = [...notes, schema.description];
+      endpoints_str += schema.description;
     }
 
-    for (const [key, value] of Object.entries(schema)) {
-      if (note_keys.includes(key)) {
-        notes = [...notes, `${key}: ${value}`];
-      } else if (key === 'discriminator') {
-        notes = [...notes, `discriminator: ${value.propertyName}`];
-      }
-    }
+    const notes = getNotes([], schema);
 
     if (notes.length > 0) {
       endpoints_str += "<ul>";
@@ -374,7 +363,7 @@ export function generateSchemaNotesMarkdown(
         endpoints_str += `<li>${note}</li>`;
       }
       endpoints_str += "</ul>";
-    } else {
+    } else if (!schema.description) {
       endpoints_str += "-";
     }
 
@@ -382,7 +371,29 @@ export function generateSchemaNotesMarkdown(
     endpoints_str += "-";
   }
 
-  endpoints_str += `|${endpoints_str}|\n`;
+  endpoints_str = `|${endpoints_str}|\n`;
 
   return endpoints_str;
+}
+
+function getNotes(notes: string[], schema: OpenAPIV3.SchemaObject): string[] {
+
+  for (let [key, value] of Object.entries(schema)) {
+
+    key = note_keys[key] ?? key;
+
+    if (Object.values(note_keys).includes(key)) {
+
+      if (Array.isArray(value)) {
+        value = [...new Set(value)];
+        value = value.join(', ');
+      }
+
+      notes = [...notes, `${key}: ${value}`];
+    } else if (key === 'discriminator') {
+      notes = [...notes, `discriminator: ${value.propertyName}`];
+    }
+  }
+
+  return notes;
 }

@@ -30,8 +30,8 @@ export function generateParametersMarkdown(
 
   endpoints_str += generateParameterTitleMarkdown(h, used_in);
 
-  const path_parameters = getParametersIn(used_in, parameters);
-  if (path_parameters.length < 1) {
+  const parameters_in = getParametersIn(used_in, parameters);
+  if (parameters_in.length < 1) {
     switch (used_in) {
       case "path":
         endpoints_str += "No Path Parameters.";
@@ -51,7 +51,7 @@ export function generateParametersMarkdown(
     }
     endpoints_str += "\n\n";
   } else {
-    endpoints_str += generateParametersTableMarkdown(path_parameters);
+    endpoints_str += generateParametersTableMarkdown(parameters_in);
   }
 
   return endpoints_str;

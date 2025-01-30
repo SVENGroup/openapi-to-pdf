@@ -2,6 +2,7 @@ import { OpenAPIV3 } from "openapi-types";
 import { generateParametersMarkdown } from "./request";
 import { generateSchemaMarkdown } from "./schema";
 import { generateRequestBodyMarkdown, generateResponsesMarkdown } from "./response";
+import { deepMerge } from "@/utils/merge";
 
 const http_methods = [
   'get',
@@ -188,7 +189,7 @@ export function generateOperationsMarkdown(
 
     for (const [method, operation] of Object.entries(operations)) {
 
-      endpoints_str += generateOperationMarkdown(h, path, method, operation);
+      endpoints_str += generateOperationMarkdown(h, path, method, operation, path_item);
     }
 
   }
@@ -200,7 +201,8 @@ export function generateOperationMarkdown(
   h: string,
   path: string,
   method: string,
-  operation: OpenAPIV3.OperationObject
+  operation: OpenAPIV3.OperationObject,
+  path_item?: OpenAPIV3.PathItemObject,
 ): string {
   let endpoints_str = "";
 
@@ -225,16 +227,15 @@ export function generateOperationMarkdown(
   endpoints_str += generateOperationSecurityMarkdown(h, operation.security);
 
   /** @ts-expect-error we resolve all references */
-  endpoints_str += generateParametersMarkdown(h, 'path', operation.parameters);
+  const parameters = getParameters(path_item?.parameters, operation.parameters);
 
-  /** @ts-expect-error we resolve all references */
-  endpoints_str += generateParametersMarkdown(h, 'query', operation.parameters);
+  endpoints_str += generateParametersMarkdown(h, 'path', parameters);
 
-  /** @ts-expect-error we resolve all references */
-  endpoints_str += generateParametersMarkdown(h, 'header', operation.parameters);
+  endpoints_str += generateParametersMarkdown(h, 'query', parameters);
 
-  /** @ts-expect-error we resolve all references */
-  endpoints_str += generateParametersMarkdown(h, 'cookie', operation.parameters);
+  endpoints_str += generateParametersMarkdown(h, 'header', parameters);
+
+  endpoints_str += generateParametersMarkdown(h, 'cookie', parameters);
 
   /** @ts-expect-error we resolve all references */
   endpoints_str += generateRequestBodyMarkdown(h, operation.requestBody);
@@ -242,6 +243,21 @@ export function generateOperationMarkdown(
   endpoints_str += generateResponsesMarkdown(h, operation.responses);
 
   return endpoints_str;
+}
+
+function getParameters(
+  path_parameters?: OpenAPIV3.ParameterObject[],
+  operation_parameters?: OpenAPIV3.ParameterObject[]
+): OpenAPIV3.ParameterObject[] {
+  if (path_parameters && !operation_parameters) {
+    return path_parameters;
+  } else if (!path_parameters && operation_parameters) {
+    return operation_parameters;
+  } else if (path_parameters && operation_parameters) {
+    return deepMerge(operation_parameters, path_parameters);
+  }
+
+  return [];
 }
 
 export function generateOperationSecurityMarkdown(

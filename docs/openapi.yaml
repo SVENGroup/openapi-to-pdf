@@ -22,25 +22,6 @@ components:
       type: apiKey
       name: X-Api-Key
       in: header
-    basicAuth: # <-- arbitrary name for the security scheme
-      type: http
-      scheme: basic
-    bearerAuth: # arbitrary name for the security scheme
-      type: http
-      scheme: bearer
-      bearerFormat: JWT # optional, arbitrary value for documentation purposes
-    oAuthSample:    # <---- arbitrary name
-      type: oauth2
-      description: This API uses OAuth 2 with the implicit grant flow. [More info](https://api.example.com/docs/auth)
-      flows:
-        implicit:   # <---- OAuth flow(authorizationCode, implicit, password or clientCredentials)
-          authorizationUrl: https://api.example.com/oauth2/authorize
-          scopes:
-            read_pets: read your pets
-            write_pets: modify pets in your account
-    openId: # <--- Arbitrary name for the security scheme. Used to refer to it from elsewhere.
-      type: openIdConnect
-      openIdConnectUrl: https://example.com/.well-known/openid-configuration
 
   schemas:
     # ENUMS
@@ -99,54 +80,6 @@ components:
           nullable: false
           readOnly: true
           example: John Doe
-        data:
-          type: object
-          properties:
-            a:
-              type: string
-            arr:
-              type: array
-              items:
-                type: object
-                properties:
-                  prop:
-                    type: integer
-        arr:
-          type: array
-          items:
-            type: string
-        all_of:
-          nullable: true
-          allOf:
-            - type: object
-              properties:
-                id:
-                  type: integer
-                prop:
-                  type: string
-            - type: object
-              properties:
-                count:
-                  type: integer
-        write_only:
-          type: string
-          writeOnly: true
-        one_of:
-          oneOf:
-            - type: object
-              properties:
-                id:
-                  type: integer
-                  description: "hello world. it can be another `item` here\nlold"
-                prop:
-                  type: string
-            - type: object
-              properties:
-                count:
-                  type: integer
-            - type: string
-              example: hello
-              format: email
 
     # RESPONSE BODY SCHEMAS
     ValidationErrorResponse:
@@ -188,6 +121,8 @@ components:
 paths:
   /users:
     post:
+      tags:
+        - Users
       summary: Create a User
       parameters:
         - in: header
@@ -233,9 +168,6 @@ paths:
       tags:
         - Users
       summary: Get a User
-      security:
-        - oAuthSample:
-            - write_pets
       parameters:
         - in: path
           name: user_id

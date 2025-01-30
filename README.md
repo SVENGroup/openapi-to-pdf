@@ -61,3 +61,7 @@ npm run test # frontend tests
 - Oauth2
 - openidconnect
 
+al of, lower overwrites upper
+
+array, any of, one of at root
+
