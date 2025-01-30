@@ -3,6 +3,7 @@ import { generateParametersMarkdown } from "./request";
 import { generateSchemaMarkdown } from "./schema";
 import { generateRequestBodyMarkdown, generateResponsesMarkdown } from "./response";
 import { deepMerge } from "@/utils/merge";
+import { getToc, Toc } from "../toc";
 
 const http_methods = [
   'get',
@@ -48,16 +49,7 @@ export default function generateEndpointsMarkdown(
       endpoints_str += generateOperationsMarkdown(paths, actual_tag);
     }
 
-    /* Others Tag (Untagged) */
-    if (Object.keys(untagged_operations).length > 0) {
-      endpoints_str += generateTagMarkdown("Uncategorized", tags);
-
-      for (const [path, operations] of Object.entries(untagged_operations)) {
-        for (const [method, operation] of Object.entries(operations)) {
-          endpoints_str += generateOperationMarkdown("#", path, method, operation);
-        }
-      }
-    }
+    endpoints_str += generateUntaggedOperationsMarkdown(tags);
 
   } else {
     endpoints_str += generateOperationsMarkdown(paths);
@@ -171,6 +163,8 @@ export function generateOperationsMarkdown(
 
   const h = actual_tag ? "#" : ""; // prefix for headers (if tag is used or not)
 
+  let operations_toc: Toc = [];
+
   for (const [path, path_item] of Object.entries(paths)) {
 
     const operations = getOperationsFromPath(path_item!, actual_tag);
@@ -189,8 +183,63 @@ export function generateOperationsMarkdown(
 
     for (const [method, operation] of Object.entries(operations)) {
 
-      endpoints_str += generateOperationMarkdown(h, path, method, operation, path_item);
+      const operation_title = generateOperationTitleMarkdown(h, path, method, operation);
+
+      operations_toc = [...operations_toc, ...getToc(operation_title)];
+
+      endpoints_str += operation_title;
+
+      endpoints_str += generateOperationMarkdown(h, operation, path_item);
     }
+
+  }
+
+  const toc_markdown = generateOperationsTocMarkdown(operations_toc);
+
+  return toc_markdown + endpoints_str;
+}
+
+export function generateUntaggedOperationsMarkdown(
+  tags?: OpenAPIV3.TagObject[]
+): string {
+  let endpoints_str = "";
+  if (Object.keys(untagged_operations).length > 0) {
+    let operations_toc: Toc = [];
+
+    for (const [path, operations] of Object.entries(untagged_operations)) {
+      for (const [method, operation] of Object.entries(operations)) {
+        const operation_title = generateOperationTitleMarkdown("#", path, method, operation);
+
+        operations_toc = [...operations_toc, ...getToc(operation_title)];
+
+        endpoints_str += operation_title;
+
+        endpoints_str += generateOperationMarkdown("#", operation);
+      }
+    }
+
+    const toc_markdown = generateOperationsTocMarkdown(operations_toc);
+
+    const tag_title_markdown = generateTagMarkdown("Uncategorized", tags);
+
+    endpoints_str = tag_title_markdown + toc_markdown + endpoints_str;
+
+  }
+  return endpoints_str;
+}
+
+export function generateOperationsTocMarkdown(
+  toc: Toc
+): string {
+  let endpoints_str = "";
+
+  if (toc.length > 0) {
+
+    for (const toc_item of toc) {
+      endpoints_str += `- [${toc_item.text}](#${toc_item.slug})\n`;
+    }
+
+    endpoints_str += `\n\n`;
 
   }
 
@@ -199,15 +248,11 @@ export function generateOperationsMarkdown(
 
 export function generateOperationMarkdown(
   h: string,
-  path: string,
-  method: string,
   operation: OpenAPIV3.OperationObject,
   path_item?: OpenAPIV3.PathItemObject,
 ): string {
   let endpoints_str = "";
 
-  endpoints_str += `${h}## \`${method.toUpperCase()} ${path}\`${operation.operationId ? `(${operation.operationId})` : ''}`
-  endpoints_str += "\n\n";
 
   if (operation.summary) {
     endpoints_str += operation.summary;
@@ -245,7 +290,21 @@ export function generateOperationMarkdown(
   return endpoints_str;
 }
 
-function getParameters(
+export function generateOperationTitleMarkdown(
+  h: string,
+  path: string,
+  method: string,
+  operation: OpenAPIV3.OperationObject,
+): string {
+  let endpoints_str = "";
+
+  endpoints_str += `${h}## \`${method.toUpperCase()} ${path}\`${operation.operationId ? `(${operation.operationId})` : ''}`
+  endpoints_str += "\n\n";
+
+  return endpoints_str;
+}
+
+export function getParameters(
   path_parameters?: OpenAPIV3.ParameterObject[],
   operation_parameters?: OpenAPIV3.ParameterObject[]
 ): OpenAPIV3.ParameterObject[] {

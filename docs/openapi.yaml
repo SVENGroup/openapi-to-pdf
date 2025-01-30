@@ -121,8 +121,6 @@ components:
 paths:
   /users:
     post:
-      tags:
-        - Users
       summary: Create a User
       parameters:
         - in: header
@@ -165,8 +163,6 @@ paths:
           $ref: "#/components/responses/ValidationErrorResponse"
   /users/{user_id}:
     get:
-      tags:
-        - Users
       summary: Get a User
       parameters:
         - in: path

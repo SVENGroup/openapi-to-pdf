@@ -8,17 +8,7 @@ export default function genererateToc(
   md: string,
   max_toc_level?: number
 ): string {
-  let toc: Toc = [];
-
-  const renderer = new marked.Renderer();
-
-  renderer.heading = (text, level, raw, slugger) => {
-    const slug = slugger.slug(raw);
-    toc.push({ level, text, slug });
-    return text;
-  };
-
-  marked.marked(md, { renderer });
+  let toc = getToc(md);
 
   let toc_str = "# Contents\n\n";
 
@@ -28,7 +18,7 @@ export default function genererateToc(
     })
   }
 
-  toc_str += `|Section|Shortcut|\n`;
+  toc_str += `|Section||\n`;
   toc_str += "|-|-|\n"
 
   toc.map((toc_item) => {
@@ -47,6 +37,22 @@ export default function genererateToc(
 
   return toc_str;
 };
+
+export function getToc(md: string): Toc {
+  const toc: Toc = [];
+
+  const renderer = new marked.Renderer();
+
+  renderer.heading = (text, level, raw, slugger) => {
+    const slug = slugger.slug(raw);
+    toc.push({ level, text, slug });
+    return text;
+  };
+
+  marked.marked(md, { renderer });
+
+  return toc;
+}
 
 function generateSectionTitleMarkdown(toc_item: TocItem): string {
   if (toc_item.level === 1) {
