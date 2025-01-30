@@ -72,6 +72,8 @@ export function generateSchemaTableMarkdown(
 ): string {
   let endpoints_str = "";
 
+  schema = handleAllOf(schema);
+
   endpoints_str += "|Key|Type|Required|Example|Notes|\n";
   endpoints_str += "|-|-|-|-|-|\n";
 
