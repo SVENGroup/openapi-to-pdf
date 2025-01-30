@@ -40,7 +40,7 @@ export function generateParametersMarkdown(
         endpoints_str += "No Query Parameters.";
         break;
       case "header":
-        endpoints_str += "No Request Headers";
+        endpoints_str += "No Specific Request Headers";
         break;
       case "cookie":
         endpoints_str += "No Cookies.";
