@@ -31,7 +31,7 @@ export function generateSchemaMarkdown(
     schema = handleAllOf(schema);
   }
 
-  if (['object', 'array'].includes(schema.type!)) {
+  if (['object', 'array'].includes(schema.type!) || schema.oneOf || schema.anyOf) {
     endpoints_str += generateSchemaTableMarkdown(schema, display_for);
   } else {
     endpoints_str += generateSchemaBasicTableMarkdown(schema);
@@ -79,7 +79,14 @@ export function generateSchemaTableMarkdown(
 
   const required_properties: string[] | undefined = schema.required;
 
-  if (schema.type === 'object') {
+  if (schema.anyOf || schema.oneOf) {
+    endpoints_str += generateOneAnyOfSchemaTableRowMarkdown(
+      '',
+      schema,
+      required_properties,
+      display_for
+    );
+  } else if (schema.type === 'object') {
     for (const [key, value] of Object.entries(schema.properties!)) {
       endpoints_str += generateSchemaTableRowMarkdown(
         key,
@@ -206,7 +213,7 @@ export function generateOneAnyOfSchemaTableRowMarkdown(
   key: string,
   schema: OpenAPIV3.SchemaObject,
   required_properties?: string[],
-  display_for?: 'response' | 'request'
+  display_for?: 'response' | 'request',
 ): string {
   let endpoints_str = "";
 
@@ -240,7 +247,7 @@ export function generateOneAnyOfSchemaTableRowMarkdown(
 
   for (const [i, option] of options.entries()) {
 
-    endpoints_str += `|*Option ${i + 1} for ${key}*||||\n`;
+    endpoints_str += `|*Option ${i + 1} for ${key === '' ? 'the root schema' : `\`${key}\``}*||||\n`;
 
     endpoints_str += generateSchemaTableRowMarkdown(
       key,
@@ -294,7 +301,7 @@ export function generateNestedArraySchemaTableRowMarkdown(
   }
 
   endpoints_str += generateSchemaTableRowMarkdown(
-    `${base_key}.*`,
+    base_key === '' ? '*' : `${base_key}.*`,
     /** @ts-expect-error we resolve all references */
     schema.items,
     undefined,
@@ -329,7 +336,7 @@ export function generateNestedObjectSchemaTableRowMarkdown(
   for (const [key, value] of Object.entries(properties)) {
 
     endpoints_str += generateSchemaTableRowMarkdown(
-      `${base_key}.${key}`,
+      base_key === '' ? key : `${base_key}.${key}`,
       /** @ts-expect-error we resolve all references */
       value,
       required_properties,
