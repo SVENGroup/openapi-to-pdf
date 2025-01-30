@@ -49,14 +49,19 @@ export default function genererateToc(
 };
 
 function generateSectionTitleMarkdown(toc_item: TocItem): string {
-  // section first levels
   if (toc_item.level === 1) {
-    return `**${toc_item.text}**`;
+    return `**${toc_item.text}**<img width="460" height="1">`;
   }
 
-  if (['Response Headers', 'Response Body'].includes(toc_item.text)) {
-    return `<ul><li>${toc_item.text}</li></ul>`;
+  let text = toc_item.text;
+
+  for (let i = 1; i <= toc_item.level - 1; i++) {
+    text = nestInUnorderedListListItem(text);
   }
 
-  return `${toc_item.text}<img width="460" height="1">`;
+  return text;
+}
+
+function nestInUnorderedListListItem(text: string): string {
+  return `<ul><li>${text}</li></ul>`;
 }
