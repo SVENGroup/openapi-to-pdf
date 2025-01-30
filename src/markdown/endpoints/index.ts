@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from "openapi-types";
-import { generateParametersMarkdown } from "./request";
+import { generateParametersMarkdown, generateRequestBodyMarkdown } from "./request";
 import { generateSchemaMarkdown } from "./schema";
-import { generateRequestBodyMarkdown, generateResponsesMarkdown } from "./response";
+import { generateResponsesMarkdown } from "./response";
 import { deepMerge } from "@/utils/merge";
 import { getToc, Toc } from "../toc";
 

@@ -141,36 +141,3 @@ export function generateResponseBodyTablesMarkdown(
 
   return endpoints_str;
 }
-
-export function generateRequestBodyMarkdown(
-  h: string,
-  body?: OpenAPIV3.RequestBodyObject
-): string {
-  let endpoints_str = "";
-
-  endpoints_str += `${h}### Request Body`;
-  endpoints_str += "\n\n";
-
-  if (body) {
-
-    if (body.required) {
-      endpoints_str += "Required.";
-      endpoints_str += "\n\n";
-    }
-
-    if (body.description) {
-      endpoints_str += body.description;
-      endpoints_str += "\n\n";
-    }
-
-    for (const [media_type, obj] of Object.entries(body.content)) {
-      endpoints_str += generateMediaTypeMarkdown(media_type, obj, 'request');
-    }
-
-  } else {
-    endpoints_str += "No Request Body.";
-    endpoints_str += "\n\n";
-  }
-
-  return endpoints_str;
-}
