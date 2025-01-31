@@ -3,8 +3,11 @@ import { PdfConfig } from "md-to-pdf/dist/lib/config"
 import * as fs from 'fs';
 
 export type Config = {
+  /** Whether or not to include a cover page. */
   include_cover: boolean,
+  /** Whether or not to include the Table of Contents section. */
   include_toc: boolean,
+  /** Maximum level included in the Table of Contents. */
   max_toc_level?: number,
   headings: {
     /** Heading text for the Table of Contents section. */
