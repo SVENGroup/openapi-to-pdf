@@ -5,7 +5,7 @@ import { genererateTocMarkdown } from "@/markdown/toc";
 import generateCoverMarkdown from "@/markdown/cover";
 import { OpenAPIV3 } from "openapi-types";
 import generateEndpointsMarkdown from "@/markdown/endpoints";
-import { Config } from "@/config";
+import { Config } from "@/types";
 
 export async function generateMarkdown(
   schema: OpenAPIV3.Document,

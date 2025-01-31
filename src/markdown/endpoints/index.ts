@@ -4,7 +4,7 @@ import { generateSchemaMarkdown } from "@/markdown/schema";
 import { generateResponsesMarkdown } from "@/markdown/endpoints/response";
 import { deepMerge } from "@/utils/merge";
 import { generateSubSectionTocMarkdown, getToc, Toc } from "@/markdown/toc";
-import { Config } from "@/config";
+import { Config } from "@/types";
 
 const http_methods = [
   'get',

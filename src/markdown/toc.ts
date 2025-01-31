@@ -1,4 +1,4 @@
-import { Config } from "@/config";
+import { Config } from "@/types";
 import marked from "marked";
 
 export type TocItem = { level: number; text: string; slug: string };

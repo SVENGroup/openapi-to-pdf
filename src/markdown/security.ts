@@ -1,4 +1,4 @@
-import { Config } from "@/config";
+import { Config } from "@/types";
 import { OpenAPIV3 } from "openapi-types";
 
 export type SecuritySchemes = { [key: string]: OpenAPIV3.SecuritySchemeObject };
