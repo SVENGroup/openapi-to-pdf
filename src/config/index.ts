@@ -46,7 +46,7 @@ export function getConfig(config?: Partial<Config>): Partial<Config> {
   return deepMerge(templated_config, base_config);
 }
 
-function getPdfConfigWithHeaderFooter(pdf_config: Partial<PdfConfig>, texts?: Partial<Config['texts']>): Partial<PdfConfig> {
+export function getPdfConfigWithHeaderFooter(pdf_config: Partial<PdfConfig>, texts?: Partial<Config['texts']>): Partial<PdfConfig> {
 
   if (!texts?.footer && !texts?.header) {
     return {};

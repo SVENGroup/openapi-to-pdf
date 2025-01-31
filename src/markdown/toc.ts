@@ -79,7 +79,7 @@ export function generateSubSectionTocMarkdown(
   return endpoints_str;
 }
 
-function generateSectionTitleMarkdown(toc_item: TocItem): string {
+export function generateSectionTitleMarkdown(toc_item: TocItem): string {
   if (toc_item.level === 1) {
     return `**${toc_item.text}**<img width="500" height="1">`;
   }
@@ -93,6 +93,6 @@ function generateSectionTitleMarkdown(toc_item: TocItem): string {
   return `${text}`;
 }
 
-function nestInUnorderedListListItem(text: string): string {
+export function nestInUnorderedListListItem(text: string): string {
   return `<ul><li>${text}</li></ul>`;
 }

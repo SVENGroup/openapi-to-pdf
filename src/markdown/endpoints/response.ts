@@ -1,4 +1,4 @@
-import { getHttpStatusName } from "@/utils/status";
+import { getStatusName } from "@/utils/http";
 import { OpenAPIV3 } from "openapi-types";
 import { generateMediaTypeMarkdown } from ".";
 import { generateSubSectionTocMarkdown, getToc } from "../toc";
@@ -63,7 +63,7 @@ export function generateResponseMarkdown(
 export function generateResponseTitleMarkdown(h: string, code: string): string {
   let endpoints_str = "";
 
-  const title = `${code} ${getHttpStatusName(code)}`;
+  const title = `${code} ${getStatusName(code)}`;
 
   endpoints_str += `${h}#### \`${title}\``;
   endpoints_str += "\n\n";

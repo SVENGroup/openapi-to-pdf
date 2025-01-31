@@ -1,25 +1,6 @@
 import { deepMerge } from "@/utils/merge";
+import { getHumanReadableNoteKey, isHumanReadableNoteKey } from "@/utils/openapi";
 import { OpenAPIV3 } from "openapi-types";
-
-export const note_keys: { [key: string]: string } = {
-  'format': 'Format',
-  'default': 'Default',
-  'multipleOf': 'Multiple Of:', // eslint-disable-line @typescript-eslint/naming-convention
-  'maximum': 'Maximum',
-  'exclusiveMaximum': 'Exclusive Maximum', // eslint-disable-line @typescript-eslint/naming-convention
-  'minimum': 'Minimum', // eslint-disable
-  'exclusiveMinimum': 'Exclusive Minimum', // eslint-disable-line @typescript-eslint/naming-convention
-  'maxLength': 'Maximum Length', // eslint-disable-line @typescript-eslint/naming-convention
-  'minLength': 'Mininimum Length', // eslint-disable-line @typescript-eslint/naming-convention
-  'pattern': 'Pattern',
-  'maxItems': 'Maximum Items', // eslint-disable-line @typescript-eslint/naming-convention
-  'minItems': 'Minimum Items', // eslint-disable-line @typescript-eslint/naming-convention
-  'uniqueItems': 'Unique Items', // eslint-disable-line @typescript-eslint/naming-convention
-  'maxProperties': 'Maximum Properties', // eslint-disable-line @typescript-eslint/naming-convention
-  'minProperties': 'Minimum Properties', // eslint-disable-line @typescript-eslint/naming-convention
-  'enum': 'Allowed Values',
-  'nullable': 'Nullable',
-}
 
 export function generateSchemaMarkdown(
   schema: OpenAPIV3.SchemaObject,
@@ -385,13 +366,13 @@ export function generateSchemaNotesMarkdown(
   return endpoints_str;
 }
 
-function getNotes(notes: string[], schema: OpenAPIV3.SchemaObject): string[] {
+export function getNotes(notes: string[], schema: OpenAPIV3.SchemaObject): string[] {
 
   for (let [key, value] of Object.entries(schema)) {
 
-    key = note_keys[key] ?? key;
+    key = getHumanReadableNoteKey(key)
 
-    if (Object.values(note_keys).includes(key)) {
+    if (isHumanReadableNoteKey(key)) {
 
       if (Array.isArray(value)) {
         value = [...new Set(value)];

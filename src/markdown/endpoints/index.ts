@@ -5,17 +5,7 @@ import { generateResponsesMarkdown } from "@/markdown/endpoints/response";
 import { deepMerge } from "@/utils/merge";
 import { generateSubSectionTocMarkdown, getToc } from "@/markdown/toc";
 import { Config, UntaggedOperations, Operations, Toc } from "@/types";
-
-const http_methods = [
-  'get',
-  'put',
-  'post',
-  'delete',
-  'options',
-  'head',
-  'patch',
-  'trace'
-];
+import { isMethod } from "@/utils/http";
 
 let untagged_operations: UntaggedOperations = {};
 
@@ -54,7 +44,7 @@ export function getActualTags(paths: OpenAPIV3.PathsObject): string[] {
   for (const key_value of Object.entries(paths)) {
     const path_item = key_value[1];
     for (const [key, value] of Object.entries(path_item!)) {
-      if (http_methods.includes(key)) {
+      if (isMethod(key)) {
         /** @ts-expect-error http method key always operation obj */
         if (value.tags) {
           /** @ts-expect-error http method key always operation obj */
@@ -96,7 +86,7 @@ export function getOperationsFromPath(
   const operations: Operations = {};
 
   for (const [key, value] of Object.entries(path_item)) {
-    if (http_methods.includes(key)) { // check only http method keys
+    if (isMethod(key)) {
       if (find_no_tag) {
         /** @ts-expect-error http method key always operation obj */
         if (!value.tags) {
@@ -143,7 +133,7 @@ export function generateTagMarkdown(
   return endpoints_str;
 }
 
-export function generateOperationsMarkdown(
+function generateOperationsMarkdown(
   paths: OpenAPIV3.PathsObject,
   actual_tag?: string,
 ): string {
@@ -370,13 +360,3 @@ export function generateMediaTypeMarkdown(
   return endpoints_str;
 
 }
-
-//export function generate(
-//
-//): string {
-//  let endpoints_str = "";
-//
-//  return endpoints_str;
-//}
-//
-

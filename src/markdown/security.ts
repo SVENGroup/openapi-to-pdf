@@ -1,4 +1,4 @@
-import { Config } from "@/types";
+import { Config, SecuritySchemeType } from "@/types";
 import { OpenAPIV3 } from "openapi-types";
 import { SecuritySchemes } from "@/types";
 
@@ -35,7 +35,7 @@ export default async function generateSecurityMarkdown(schema: OpenAPIV3.Documen
   return sec_str;
 }
 
-async function generateApiKeysMarkdown(security_schemes: SecuritySchemes): Promise<string> {
+export async function generateApiKeysMarkdown(security_schemes: SecuritySchemes): Promise<string> {
 
   let sec_str = "";
 
@@ -70,7 +70,7 @@ async function generateApiKeysMarkdown(security_schemes: SecuritySchemes): Promi
   return sec_str;
 }
 
-function generateBasicMarkdown(security_schemes: SecuritySchemes): string {
+export function generateBasicMarkdown(security_schemes: SecuritySchemes): string {
   let sec_str = "";
 
   const match = getMatchingSecuritySchemes(security_schemes, 'http', 'basic');
@@ -94,7 +94,7 @@ function generateBasicMarkdown(security_schemes: SecuritySchemes): string {
   return sec_str;
 }
 
-function generateBearerMarkdown(security_schemes: SecuritySchemes): string {
+export function generateBearerMarkdown(security_schemes: SecuritySchemes): string {
   let sec_str = "";
 
   const match = getMatchingSecuritySchemes(security_schemes, 'http', 'basic');
@@ -119,7 +119,7 @@ function generateBearerMarkdown(security_schemes: SecuritySchemes): string {
   return sec_str;
 }
 
-function generateOidcMarkdown(security_schemes: SecuritySchemes): string {
+export function generateOidcMarkdown(security_schemes: SecuritySchemes): string {
   let sec_str = "";
 
   const match = getMatchingSecuritySchemes(security_schemes, 'openIdConnect');
@@ -142,7 +142,7 @@ function generateOidcMarkdown(security_schemes: SecuritySchemes): string {
   return sec_str;
 }
 
-async function generateOauthMarkdown(security_schemes: SecuritySchemes): Promise<string> {
+export async function generateOauthMarkdown(security_schemes: SecuritySchemes): Promise<string> {
   let sec_str = "";
 
   const match = getMatchingSecuritySchemes(security_schemes, 'oauth2');
@@ -164,7 +164,7 @@ async function generateOauthMarkdown(security_schemes: SecuritySchemes): Promise
   return sec_str;
 }
 
-async function generateOauthFlowsMarkdown(
+export async function generateOauthFlowsMarkdown(
   security_scheme: OpenAPIV3.OAuth2SecurityScheme
 ): Promise<string> {
   const changeCase = await import("change-case"); // eslint-disable-line @typescript-eslint/naming-convention
@@ -203,7 +203,7 @@ async function generateOauthFlowsMarkdown(
   return sec_str;
 }
 
-function getMatchingSecuritySchemes(security_schemes: SecuritySchemes, type: 'apiKey' | 'http' | 'oauth2' | 'openIdConnect', scheme?: 'basic' | 'bearer'): SecuritySchemes {
+export function getMatchingSecuritySchemes(security_schemes: SecuritySchemes, type: SecuritySchemeType, scheme?: 'basic' | 'bearer'): SecuritySchemes {
 
   const match: SecuritySchemes = {};
 

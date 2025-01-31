@@ -43,7 +43,7 @@ export default function generateInfoMarkdown(
   return info_str;
 }
 
-function generateTosMarkdown(info: OpenAPIV3.Document["info"]): string {
+export function generateTosMarkdown(info: OpenAPIV3.Document["info"]): string {
   let info_str = "";
   if (info.termsOfService) {
     info_str += `Terms of Service: [${info.termsOfService}](${info.termsOfService})`;
@@ -52,7 +52,7 @@ function generateTosMarkdown(info: OpenAPIV3.Document["info"]): string {
   return info_str;
 }
 
-function generateContactMarkdown(info: OpenAPIV3.Document["info"]): string {
+export function generateContactMarkdown(info: OpenAPIV3.Document["info"]): string {
   let info_str = "";
   if (info.contact && (info.contact.email || info.contact.name || info.contact.url)) {
     info_str += "## Contact";
@@ -79,7 +79,7 @@ function generateContactMarkdown(info: OpenAPIV3.Document["info"]): string {
   return info_str;
 }
 
-function generateLicenseMarkdown(info: OpenAPIV3.Document["info"]): string {
+export function generateLicenseMarkdown(info: OpenAPIV3.Document["info"]): string {
   let info_str = "";
   if (info.license?.name) {
     info_str += "## License"
