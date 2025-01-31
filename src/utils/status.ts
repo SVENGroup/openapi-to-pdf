@@ -59,5 +59,5 @@ export function getHttpStatusName(code: string | number) {
 
   const numeric_code = Number(code);
   /** @ts-expect-error we force to number always */
-  return status_code[numeric_code] || "Unknown Status Code";
+  return status_code[numeric_code] ?? "Unknown Status Code";
 }
