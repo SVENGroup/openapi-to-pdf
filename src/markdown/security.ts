@@ -1,7 +1,6 @@
 import { Config } from "@/types";
 import { OpenAPIV3 } from "openapi-types";
-
-export type SecuritySchemes = { [key: string]: OpenAPIV3.SecuritySchemeObject };
+import { SecuritySchemes } from "@/types";
 
 export default async function generateSecurityMarkdown(schema: OpenAPIV3.Document, config?: Partial<Config>): Promise<string> {
 

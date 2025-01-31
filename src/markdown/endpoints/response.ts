@@ -1,7 +1,8 @@
 import { getHttpStatusName } from "@/utils/status";
 import { OpenAPIV3 } from "openapi-types";
 import { generateMediaTypeMarkdown } from ".";
-import { generateSubSectionTocMarkdown, getToc, Toc } from "../toc";
+import { generateSubSectionTocMarkdown, getToc } from "../toc";
+import { Toc } from "@/types";
 
 export function generateResponsesMarkdown(
   h: string,

@@ -18,8 +18,6 @@ export default async function validate(
 
     const schema = validator.resolveRefs();
 
-    //console.log(JSON.stringify(schema));
-
     /** @ts-expect-error using type from different package */
     return schema;
   } else {

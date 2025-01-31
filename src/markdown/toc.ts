@@ -1,9 +1,7 @@
 import { Config } from "@/types";
 import marked from "marked";
-
-export type TocItem = { level: number; text: string; slug: string };
-
-export type Toc = TocItem[]
+import { Toc } from "@/types";
+import { TocItem } from "@/types";
 
 export function genererateTocMarkdown(
   md: string,

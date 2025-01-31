@@ -3,8 +3,8 @@ import { generateParametersMarkdown, generateRequestBodyMarkdown } from "@/markd
 import { generateSchemaMarkdown } from "@/markdown/schema";
 import { generateResponsesMarkdown } from "@/markdown/endpoints/response";
 import { deepMerge } from "@/utils/merge";
-import { generateSubSectionTocMarkdown, getToc, Toc } from "@/markdown/toc";
-import { Config } from "@/types";
+import { generateSubSectionTocMarkdown, getToc } from "@/markdown/toc";
+import { Config, UntaggedOperations, Operations, Toc } from "@/types";
 
 const http_methods = [
   'get',
@@ -16,14 +16,6 @@ const http_methods = [
   'patch',
   'trace'
 ];
-
-export type Operations = {
-  [operation: string]: OpenAPIV3.OperationObject
-}
-
-export type UntaggedOperations = {
-  [path: string]: Operations
-}
 
 let untagged_operations: UntaggedOperations = {};
 
