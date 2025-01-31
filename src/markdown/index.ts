@@ -5,22 +5,22 @@ import genererateToc from "./toc";
 import generateCoverMarkdown from "./cover";
 import { OpenAPIV3 } from "openapi-types";
 import generateEndpointsMarkdown from "@/markdown/endpoints";
+import { Config } from "@/types/config";
 
 export default async function generateMarkdown(
   schema: OpenAPIV3.Document,
-  title?: string,
-  subtitle?: string,
+  config: Partial<Config>
 ): Promise<string> {
 
   let full_str = "";
 
-  const info_md = generateInfoMarkdown(schema);
+  const info_md = generateInfoMarkdown(schema, config);
   full_str += info_md;
 
-  const server_md = generateServerMarkdown(schema);
+  const server_md = generateServerMarkdown(schema, config);
   full_str += server_md;
 
-  const security_md = await generateSecurityMarkdown(schema);
+  const security_md = await generateSecurityMarkdown(schema, config);
   full_str += security_md;
 
   /* ENDPOINTS */
@@ -30,21 +30,20 @@ export default async function generateMarkdown(
   full_str += endpoints_md;
 
   /* TOC */
-  const toc = genererateToc(full_str);
-  full_str = toc + full_str;
+  if (config.include_toc) {
+    const toc = genererateToc(full_str, config);
+    full_str = toc + full_str;
+  }
 
   /* COVER PAGE */
-  if (!title) {
-    title = schema.info.title;
+  if (config.include_cover) {
+    const title = config.texts?.title ?? schema.info.title;
+
+    const subtitle = config.texts?.subtitle ?? "API Reference Document";
+
+    const cover = generateCoverMarkdown(title, subtitle);
+    full_str = cover + full_str;
   }
-
-  if (!subtitle) {
-    subtitle = "API Reference Document";
-  }
-
-  const cover = generateCoverMarkdown(title, subtitle);
-  full_str = cover + full_str;
-
 
   return full_str;
 }

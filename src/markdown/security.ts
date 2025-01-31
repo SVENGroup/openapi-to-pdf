@@ -1,8 +1,9 @@
+import { Config } from "@/types/config";
 import { OpenAPIV3 } from "openapi-types";
 
 export type SecuritySchemes = { [key: string]: OpenAPIV3.SecuritySchemeObject };
 
-export default async function generateSecurityMarkdown(schema: OpenAPIV3.Document): Promise<string> {
+export default async function generateSecurityMarkdown(schema: OpenAPIV3.Document, config?: Partial<Config>): Promise<string> {
 
   const sec = schema.security;
   const sec_schemes = schema.components?.securitySchemes;
@@ -10,7 +11,7 @@ export default async function generateSecurityMarkdown(schema: OpenAPIV3.Documen
   let sec_str = "";
 
   if (sec && sec_schemes) {
-    sec_str += "# Security";
+    sec_str += `# ${config?.headings?.security ?? 'Security'}`;
     sec_str += "\n\n";
     sec_str += "The following security schemes are used by this API for authentication and authorization. These must be taken into account in every request unless otherwise stated.";
     sec_str += "\n\n";

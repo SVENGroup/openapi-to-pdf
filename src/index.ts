@@ -7,7 +7,6 @@ export async function generatePdf(
   config?: Partial<Config>,
 ): Promise<Buffer<ArrayBufferLike>> {
 
-  console.log(config);
   config = getConfig(config);
 
   console.info('Validating OpenAPI Schema ...');
@@ -16,8 +15,7 @@ export async function generatePdf(
   console.info('Generating Contents ...');
   const markdown_str = await generateMarkdown(
     schema,
-    config.texts?.title,
-    config.texts?.subtitle
+    config
   );
 
   console.info('Generating PDF File ...');

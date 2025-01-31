@@ -1,7 +1,10 @@
+import { Config } from "@/types/config";
 import { OpenAPIV3 } from "openapi-types";
 
 export default function generateInfoMarkdown(
-  schema: OpenAPIV3.Document): string {
+  schema: OpenAPIV3.Document,
+  config?: Partial<Config>
+): string {
 
   const info = schema.info;
 
@@ -17,6 +20,12 @@ export default function generateInfoMarkdown(
   /* description */
   if (info.description) {
     info_str += `${info.description}`;
+    info_str += "\n\n";
+  }
+
+  /* added info */
+  if (config?.texts?.info) {
+    info_str += config.texts.info;
     info_str += "\n\n";
   }
 

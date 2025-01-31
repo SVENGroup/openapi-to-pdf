@@ -1,13 +1,14 @@
+import { Config } from "@/types/config";
 import { OpenAPIV3 } from "openapi-types";
 
-export default function generateServerMarkdown(schema: OpenAPIV3.Document): string {
+export default function generateServerMarkdown(schema: OpenAPIV3.Document, config?: Partial<Config>): string {
   let server_str = "";
 
   const servers = schema.servers;
 
   if (servers) {
 
-    server_str += "# Servers";
+    server_str += `# ${config?.headings?.servers ?? 'Servers'}`;
     server_str += "\n\n";
 
     server_str += "The following servers may be utilized for this API:";

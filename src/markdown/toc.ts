@@ -1,3 +1,4 @@
+import { Config } from "@/types/config";
 import marked from "marked";
 
 export type TocItem = { level: number; text: string; slug: string };
@@ -6,15 +7,15 @@ export type Toc = TocItem[]
 
 export default function genererateToc(
   md: string,
-  max_toc_level?: number
+  config?: Partial<Config>
 ): string {
   let toc = getToc(md);
 
-  let toc_str = "# Contents\n\n";
+  let toc_str = `# ${config?.headings?.toc ?? 'Contents'}\n\n`;
 
-  if (max_toc_level) {
+  if (config?.max_toc_level) {
     toc = toc.filter((toc_item) => {
-      return toc_item.level <= max_toc_level;
+      return toc_item.level <= config.max_toc_level!;
     })
   }
 
