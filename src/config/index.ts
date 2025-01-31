@@ -18,7 +18,7 @@ export type Config = {
     /** Heading text for the Endpoints section where all operations in the OpenAPI schema are listed */
     endpoints: string
     /** Heading text for the category of all operations without the `tags` property when `tags` are specified by other operations. */
-    uncategorized_endpoints: string
+    untagged_endpoints: string
   },
   texts: {
     /** Title of the document. Shows up on the cover page. */
@@ -46,7 +46,7 @@ export const base_config: Partial<Config> = {
     servers: 'Servers',
     security: 'Security',
     endpoints: 'Operations',
-    uncategorized_endpoints: 'Others'
+    untagged_endpoints: 'Others'
   },
   pdf_config: {
     page_media_type: 'print',

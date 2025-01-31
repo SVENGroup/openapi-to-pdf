@@ -1,4 +1,4 @@
-import { Config } from "@/types/config";
+import { Config } from "@/config";
 import { OpenAPIV3 } from "openapi-types";
 
 export default function generateInfoMarkdown(

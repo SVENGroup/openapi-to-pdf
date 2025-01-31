@@ -4,6 +4,7 @@ import { generateSchemaMarkdown } from "./schema";
 import { generateResponsesMarkdown } from "./response";
 import { deepMerge } from "@/utils/merge";
 import { generateSubSectionTocMarkdown, getToc, Toc } from "../toc";
+import { Config } from "@/config";
 
 const http_methods = [
   'get',
@@ -27,11 +28,12 @@ export type UntaggedOperations = {
 let untagged_operations: UntaggedOperations = {};
 
 export default function generateEndpointsMarkdown(
-  schema: OpenAPIV3.Document
+  schema: OpenAPIV3.Document,
+  config?: Partial<Config>
 ): string {
   let endpoints_str = "";
 
-  endpoints_str += "# Endpoints";
+  endpoints_str += `# ${config?.headings?.endpoints ?? 'Endpoints'}`;
   endpoints_str += "\n\n";
 
   const tags = schema.tags;
@@ -49,7 +51,7 @@ export default function generateEndpointsMarkdown(
       endpoints_str += generateOperationsMarkdown(paths, actual_tag);
     }
 
-    endpoints_str += generateUntaggedOperationsMarkdown(tags);
+    endpoints_str += generateUntaggedOperationsMarkdown(tags, config);
 
   } else {
     endpoints_str += generateOperationsMarkdown(paths);
@@ -200,7 +202,8 @@ export function generateOperationsMarkdown(
 }
 
 export function generateUntaggedOperationsMarkdown(
-  tags?: OpenAPIV3.TagObject[]
+  tags?: OpenAPIV3.TagObject[],
+  config?: Partial<Config>
 ): string {
   let endpoints_str = "";
   if (Object.keys(untagged_operations).length > 0) {
@@ -220,7 +223,7 @@ export function generateUntaggedOperationsMarkdown(
 
     const toc_markdown = generateSubSectionTocMarkdown(operations_toc);
 
-    const tag_title_markdown = generateTagMarkdown("Uncategorized", tags);
+    const tag_title_markdown = generateTagMarkdown(config?.headings?.untagged_endpoints ?? "Uncategorized", tags);
 
     endpoints_str = tag_title_markdown + toc_markdown + endpoints_str;
 

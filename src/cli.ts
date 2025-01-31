@@ -4,7 +4,7 @@ import 'tsconfig-paths/register.js';
 import { program } from "commander";
 import * as fs from 'fs';
 import { generatePdf } from '@/index';
-import { getConfigFromFile } from './types/config';
+import { getConfigFromFile } from './config';
 import { deepMerge } from './utils/merge';
 
 program
