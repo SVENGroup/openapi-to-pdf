@@ -5,7 +5,7 @@ export type TocItem = { level: number; text: string; slug: string };
 
 export type Toc = TocItem[]
 
-export default function genererateToc(
+export function genererateTocMarkdown(
   md: string,
   config?: Partial<Config>
 ): string {

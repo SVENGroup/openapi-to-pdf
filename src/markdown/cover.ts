@@ -1,7 +1,14 @@
+import { Config } from "@/config";
+import { OpenAPIV3 } from "openapi-types";
+
 export default function generateCoverMarkdown(
-  title: string,
-  subtitle?: string
+  schema: OpenAPIV3.Document,
+  config?: Partial<Config>
 ): string {
+
+  const title = config?.texts?.title ?? schema.info.title;
+  const subtitle = config?.texts?.subtitle ?? "API Reference Document";
+
   let cover_str = "";
 
   cover_str += `<h1 style="font-size: 48px; line-height: 1.2; font-weight: 700; margin-top: 150px; margin-bottom: 0px">${title}</h1>`
