@@ -3,7 +3,8 @@ info:
   title: "App Name"
   version: 1.0.0
   license:
-    name: PROPRIETARY
+    name: MIT
+    url: https://github.com/SVENGroup/openapi-to-pdf?tab=MIT-1-ov-file#readme
   contact:
     url: https://svengroup.com
     email: refreshing@svengroup.com
@@ -181,7 +182,7 @@ paths:
                     properties:
                       data:
                         $ref: "#/components/schemas/User"
-        "422":
+        "400":
           $ref: "#/components/responses/ValidationErrorResponse"
         "429":
           $ref: "#/components/responses/RateLimitedErrorResponse"
@@ -216,3 +217,7 @@ paths:
           $ref: "#/components/responses/NotFoundErrorResponse"
         "429":
           $ref: "#/components/responses/RateLimitedErrorResponse"
+
+tags:
+  - name: Users
+    description: Perform actions on User resource objects.
