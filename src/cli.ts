@@ -2,10 +2,10 @@
 
 import 'tsconfig-paths/register.js';
 import { program } from "commander";
-import * as fs from 'fs';
 import { generatePdf } from '@/index';
-import { getConfigFromFile } from './config';
-import { deepMerge } from './utils/merge';
+import { getConfigFromFile } from '@/config';
+import { deepMerge } from '@/utils/merge';
+import * as fs from 'fs';
 
 program
   .name("openapi-to-pdf")

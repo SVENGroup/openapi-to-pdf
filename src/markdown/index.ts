@@ -7,7 +7,7 @@ import { OpenAPIV3 } from "openapi-types";
 import generateEndpointsMarkdown from "@/markdown/endpoints";
 import { Config } from "@/config";
 
-export default async function generateMarkdown(
+export async function generateMarkdown(
   schema: OpenAPIV3.Document,
   config: Partial<Config>
 ): Promise<string> {
