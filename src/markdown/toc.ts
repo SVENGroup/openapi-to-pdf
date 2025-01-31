@@ -39,14 +39,22 @@ export default function genererateToc(
   return toc_str;
 };
 
-export function getToc(md: string): Toc {
+export function getToc(md: string, levels?: number[]): Toc {
   const toc: Toc = [];
 
   const renderer = new marked.Renderer();
 
   renderer.heading = (text, level, raw, slugger) => {
     const slug = slugger.slug(raw);
-    toc.push({ level, text, slug });
+
+    if (levels) {
+      if (levels.includes(level)) {
+        toc.push({ level, text, slug });
+      }
+    } else {
+      toc.push({ level, text, slug });
+    }
+
     return text;
   };
 

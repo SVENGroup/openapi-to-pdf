@@ -42,17 +42,12 @@ export default function generateEndpointsMarkdown(
   const actual_tags = getActualTags(paths);
 
   if (actual_tags.length > 0) {
-    for (const actual_tag of actual_tags!) {
-
-      /* TAG */
-      endpoints_str += generateTagMarkdown(actual_tag, tags);
-
-      /* OPERATIONS */
-      endpoints_str += generateOperationsMarkdown(paths, actual_tag);
-    }
-
-    endpoints_str += generateUntaggedOperationsMarkdown(tags, config);
-
+    endpoints_str += generateOperationsWithTagsMarkdown(
+      paths,
+      actual_tags,
+      tags,
+      config
+    )
   } else {
     endpoints_str += generateOperationsMarkdown(paths);
   }
@@ -200,6 +195,33 @@ export function generateOperationsMarkdown(
 
   return toc_markdown + endpoints_str;
 }
+
+export function generateOperationsWithTagsMarkdown(
+  paths: OpenAPIV3.PathsObject,
+  actual_tags: string[],
+  tags?: OpenAPIV3.TagObject[],
+  config?: Partial<Config>
+): string {
+  let endpoints_str = "";
+
+  for (const actual_tag of actual_tags!) {
+
+    /* TAG */
+    endpoints_str += generateTagMarkdown(actual_tag, tags);
+
+    /* OPERATIONS */
+    endpoints_str += generateOperationsMarkdown(paths, actual_tag);
+  }
+
+  /* UNTAGGED */
+  endpoints_str += generateUntaggedOperationsMarkdown(tags, config);
+
+  /* TAGS TOC */
+  const tags_toc = getToc(endpoints_str, [2]);
+  const tags_toc_str = generateSubSectionTocMarkdown(tags_toc);
+
+  return tags_toc_str + endpoints_str;
+};
 
 export function generateUntaggedOperationsMarkdown(
   tags?: OpenAPIV3.TagObject[],
