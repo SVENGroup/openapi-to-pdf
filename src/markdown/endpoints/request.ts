@@ -1,5 +1,5 @@
 import { OpenAPIV3 } from "openapi-types";
-import { generateNestedSchemaTableRowMarkdown, generateOneAnyOfSchemaTableRowMarkdown, generateSchemaNotesMarkdown, generateSchemaTableRowExampleColMarkdown, handleAllOf } from "./schema";
+import { generateNestedSchemaTableRowMarkdown, generateOneAnyOfSchemaTableRowMarkdown, generateSchemaNotesMarkdown, generateSchemaTableRowExampleColMarkdown, handleAllOf } from "@/markdown/schema";
 import { generateMediaTypeMarkdown } from ".";
 
 export function getParametersIn(

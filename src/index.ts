@@ -1,6 +1,6 @@
 import generateMarkdown from "@/markdown";
 import validate from "@/validate";
-import { Config, getConfig } from "./config";
+import { Config, getConfig } from "@/config";
 
 export async function generatePdf(
   oas: string,

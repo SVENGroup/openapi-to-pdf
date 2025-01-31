@@ -1,8 +1,8 @@
 import generateInfoMarkdown from "@/markdown/info";
-import generateSecurityMarkdown from "./security";
-import generateServerMarkdown from "./server";
-import genererateToc from "./toc";
-import generateCoverMarkdown from "./cover";
+import generateSecurityMarkdown from "@/markdown/security";
+import generateServerMarkdown from "@/markdown/server";
+import genererateToc from "@/markdown/toc";
+import generateCoverMarkdown from "@/markdown/cover";
 import { OpenAPIV3 } from "openapi-types";
 import generateEndpointsMarkdown from "@/markdown/endpoints";
 import { Config } from "@/config";

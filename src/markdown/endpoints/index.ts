@@ -1,9 +1,9 @@
 import { OpenAPIV3 } from "openapi-types";
-import { generateParametersMarkdown, generateRequestBodyMarkdown } from "./request";
-import { generateSchemaMarkdown } from "./schema";
-import { generateResponsesMarkdown } from "./response";
+import { generateParametersMarkdown, generateRequestBodyMarkdown } from "@/markdown/endpoints/request";
+import { generateSchemaMarkdown } from "@/markdown/schema";
+import { generateResponsesMarkdown } from "@/markdown/endpoints/response";
 import { deepMerge } from "@/utils/merge";
-import { generateSubSectionTocMarkdown, getToc, Toc } from "../toc";
+import { generateSubSectionTocMarkdown, getToc, Toc } from "@/markdown/toc";
 import { Config } from "@/config";
 
 const http_methods = [
