@@ -1,6 +1,6 @@
 # SVENGroup/openapi-to-pdf
 
-Create PDF API reference documentation from OpenAPI 3.0.x specification YAML files.
+Create PDF API reference documentation from OpenAPI 3.0.x specification files.
 
 ## Requirements
 

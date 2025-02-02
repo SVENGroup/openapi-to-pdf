@@ -181,7 +181,7 @@ export async function generateOauthFlowsMarkdown(
     for (const [key, value] of Object.entries(flow)) {
 
       if (key === 'scopes') {
-        sec_str += `- Scopes\n`;
+        sec_str += `- Scopes:\n`;
 
         for (const [scope, desc] of Object.entries(value)) {
           sec_str += `\t- \`${scope}\`: ${desc}\n`;

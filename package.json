@@ -1,7 +1,7 @@
 {
     "name": "openapi-to-pdf",
     "version": "1.0.0",
-    "description": "Create PDF API reference documentation from OpenAPI 3.0.x specification YAML files.",
+    "description": "Create PDF API reference documentation from OpenAPI 3.0.x specification files.",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/SVENGroup/openapi-to-pdf.git"
