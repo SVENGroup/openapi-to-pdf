@@ -1,6 +1,8 @@
 import { Config } from "@/types";
 import { OpenAPIV3 } from "openapi-types";
 
+const indefinite = require('indefinite');
+
 export default function generateInfoMarkdown(
   schema: OpenAPIV3.Document,
   config?: Partial<Config>
@@ -46,7 +48,11 @@ export default function generateInfoMarkdown(
 export function generateTosMarkdown(info: OpenAPIV3.Document["info"]): string {
   let info_str = "";
   if (info.termsOfService) {
-    info_str += `Terms of Service: [${info.termsOfService}](${info.termsOfService})`;
+
+    info_str += "## Terms of Service";
+    info_str += "\n\n";
+
+    info_str += `Usage of this API is subject to its Terms of Service which you may access at [${info.termsOfService}](${info.termsOfService}).`;
     info_str += "\n\n";
   }
   return info_str;
@@ -85,7 +91,9 @@ export function generateLicenseMarkdown(info: OpenAPIV3.Document["info"]): strin
     info_str += "## License"
     info_str += "\n\n";
 
-    info_str += `This API is under a ${info.license.name} license.`
+    const license_text = indefinite(info.license.name);
+
+    info_str += `This API is under ${license_text} license.`
     info_str += "\n\n";
 
     if (info.license.url) {

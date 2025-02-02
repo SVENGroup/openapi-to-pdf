@@ -4,12 +4,11 @@ import { SecuritySchemes } from "@/types";
 
 export default async function generateSecurityMarkdown(schema: OpenAPIV3.Document, config?: Partial<Config>): Promise<string> {
 
-  const sec = schema.security;
   const sec_schemes = schema.components?.securitySchemes;
 
   let sec_str = "";
 
-  if (sec && sec_schemes) {
+  if (sec_schemes) {
     sec_str += `# ${config?.headings?.security ?? 'Security'}`;
     sec_str += "\n\n";
     sec_str += "The following security schemes are used by this API for authentication and authorization. These must be taken into account in every request unless otherwise stated.";

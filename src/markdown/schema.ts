@@ -68,15 +68,24 @@ export function generateSchemaTableMarkdown(
       display_for
     );
   } else if (schema.type === 'object') {
-    for (const [key, value] of Object.entries(schema.properties!)) {
-      endpoints_str += generateSchemaTableRowMarkdown(
-        key,
-        /** @ts-expect-error we resolve all references */
-        value,
-        required_properties,
-        display_for
-      )
+    if (schema.properties) {
+      for (const [key, value] of Object.entries(schema.properties)) {
+        endpoints_str += generateSchemaTableRowMarkdown(
+          key,
+          /** @ts-expect-error we resolve all references */
+          value,
+          required_properties,
+          display_for
+        )
+      }
     }
+
+    endpoints_str +=  generateAddtlPropSchemaTableRowMarkdown(
+      '',
+      schema,
+      display_for
+    );
+
   } else if (schema.type === 'array') {
     endpoints_str += "||array|||The root schema is an array.|\n";
     endpoints_str += generateSchemaTableRowMarkdown(
@@ -88,10 +97,29 @@ export function generateSchemaTableMarkdown(
     )
   }
 
+  return endpoints_str;
+}
 
+export function generateAddtlPropSchemaTableRowMarkdown(
+  base_key: string,
+  schema: OpenAPIV3.SchemaObject,
+  display_for?: 'response' | 'request'
+): string {
+  let endpoints_str = "";
+
+  if (typeof schema.additionalProperties === 'object') {
+    endpoints_str += generateSchemaTableRowMarkdown(
+      base_key === '' ? '{attribute}' : `${base_key}.{attribute}`,
+      /** @ts-expect-error we resolve all references */
+      schema.additionalProperties,
+      [],
+      display_for
+    )
+  }
 
   return endpoints_str;
 }
+
 
 export function handleAllOf(
   schema: OpenAPIV3.SchemaObject
@@ -307,23 +335,30 @@ export function generateNestedObjectSchemaTableRowMarkdown(
     return "";
   }
 
-  const properties = schema.properties!;
+  const properties = schema.properties;
 
   let required_properties: string[] | undefined = schema.required;
   if (required_properties) {
     required_properties = required_properties.map((prop: string) => `${base_key}.${prop}`);
   }
 
-  for (const [key, value] of Object.entries(properties)) {
-
-    endpoints_str += generateSchemaTableRowMarkdown(
-      base_key === '' ? key : `${base_key}.${key}`,
-      /** @ts-expect-error we resolve all references */
-      value,
-      required_properties,
-      display_for
-    );
+  if (properties) {
+    for (const [key, value] of Object.entries(properties)) {
+      endpoints_str += generateSchemaTableRowMarkdown(
+        base_key === '' ? key : `${base_key}.${key}`,
+        /** @ts-expect-error we resolve all references */
+        value,
+        required_properties,
+        display_for
+      );
+    }
   }
+
+  endpoints_str += generateAddtlPropSchemaTableRowMarkdown(
+    base_key,
+    schema,
+    display_for
+  )
 
   return endpoints_str;
 }
