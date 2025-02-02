@@ -1,7 +1,7 @@
 import { Config } from "@/types";
 import { OpenAPIV3 } from "openapi-types";
 
-const indefinite = require('indefinite');
+const indefinite = require('indefinite'); // eslint-disable-line @typescript-eslint/no-require-imports
 
 export default function generateInfoMarkdown(
   schema: OpenAPIV3.Document,
