@@ -1,63 +1,83 @@
-# SVENGroup/openapi-to-pdf
+# @svengroup/openapi-to-pdf
 
-Create PDF API reference documentation from OpenAPI 3.0.x specification files.
+Create PDF API reference documentation from OpenAPI 3.0.x specification files. 
 
-## Requirements
+This tool was created since we needed a NodeJS tool and the well loved [swagger2markup](https://github.com/Swagger2Markup/swagger2markup?tab=readme-ov-file) is written in Java and doesn't support OpenAPI v3 which we use internally at [The SVEN Group](https://svengroup.com).
 
-- Node 20.18.x
+## Sample PDF Output
+
+You may view the sample PDF output here: [`/samples/api-reference.pdf`](./samples/api-reference.pdf).
+
+It shows a PDF version of the sample OpenAPI specification when first opening the [Swagger Online Editor](https://editor.swagger.io/) and no configuration for this tool is set.
+
+## Inclusions
+
+This tool includes the following:
+
+- Command line usage to generate PDF API reference documentation
+- YAML and JSON OpenAPI 3.0.x support
+- Fully configurable:
+    - Header & footer
+    - Cover page
+    - Table of contents
+    - Headings and texts
+    - PDF settings (thanks to [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf))
+- Programmatic usage with markdown output
+- TypeScript support
 
 ## Installation
 
-1. Clone this repository
-```shell
-git clone https://github.com/SVENGroup/openapi-to-pdf.git
-```
-2. Install JS dependencies
-```shell
-npm install
-```
-
-
-## Environment Variables
-- [.env.example](/.env.example)
-
-## Linting
-
-To lint JS/TS files run the following command:
+To install this tool run the one of the following commands:
 
 ```shell
-npm run lint 
+npm i -g @svengroup/openapi-to-pdf # install globally
+npm i -D @svengroup/openapi-to-pdf # install as a dev dependency
+npm i @svengroup/openapi-to-pdf # install as a dependency
 ```
 
-The `npm run lint` command is part of a git pre-commit hook. Make sure you set git hooks as executable with:
+## Usage
+
+To convert an OpenAPI 3.0.x file to PDF simply run the following command:
 
 ```shell
-chmod ug+x .githooks/pre-commit # for UNIX systems
+openapi-to-pdf path/to/openapi.yaml
 ```
 
-## Formatting
+This will create an `api-reference.pdf` file in the same directory where the command was ran.
 
-This repository comes with a [.editorconfig](./.editorconfig) file to aid in formatting. This works with multiple IDEs but if you're using VSCode, make sure to install the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) plugin to make it work.
+To view the different options for the same command run the `--help` option:
 
-*Prettier was not installed since it currently has issues with keeping line breaks that developers often add for readability.*
-
-## Testing
-
-Execute the following commands to run both backend and frontend tests:
-
-``` shell
-npm run test # frontend tests
+```shell
+openapi-to-pdf --help
 ```
 
-## Contributing
+## Display Logic
 
-1. Create a new branch from the `dev` branch. Use the Jira Issue Key as the branch name.
-1. Once done, create a Pull Request to the `dev` branch. Use this format as the PR Title: `Jira-Issue-Key: Jira Issue Title`
+To understand how this tool handles different scenarios in an OpenAPI schema, see [Display Logic](./docs/DisplayLogic.md).
 
-## References
-- [Technical Documentation](./docs)
+## Configuration
+
+You can configure the PDF output by specifying a configuration file in the command:
+
+```shell
+openapi-to-pdf path/to/openapi.yaml --config path/to/config.json
+```
+
+To read more about how to configure your PDF output and the options available, see [Configuration](./docs/Configuration.md).
+
+## Programmatic Usage
 
 
-al of, lower overwrites upper
 
-sub toc for tags
+## To Do's
+
+- Automated Tests
+- Example Section in the PDF (JSON is a priority)
+- Multi-file Support
+
+## Contribution
+
+Read the [Contribution Guide](./docs/CONTRIBUTING) for details on how to contribute.
+
+## Acknowledgements
+

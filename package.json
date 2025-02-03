@@ -1,12 +1,24 @@
 {
-    "name": "openapi-to-pdf",
+    "name": "@svengroup/openapi-to-pdf",
     "version": "1.0.0",
     "description": "Create PDF API reference documentation from OpenAPI 3.0.x specification files.",
+    "keywords": [
+        "openapi",
+        "pdf",
+        "markdown",
+        "swagger",
+        "api documentation",
+        "openapi to pdf"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/SVENGroup/openapi-to-pdf.git"
     },
-    "author": "The SVEN Group",
+    "author": {
+        "name": "The SVEN Group",
+        "email": "refreshing@svengroup.com",
+        "url": "https://svengroup.com"
+    },
     "license": "MIT",
     "homepage": "https://github.com/SVENGroup/openapi-to-pdf#readme",
     "bugs": {
