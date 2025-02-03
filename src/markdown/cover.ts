@@ -7,7 +7,7 @@ export default function generateCoverMarkdown(
 ): string {
 
   const title = config?.texts?.title ?? schema.info.title;
-  const subtitle = config?.texts?.subtitle ?? "API Reference Document";
+  const subtitle = config?.texts?.subtitle
 
   let cover_str = "";
 

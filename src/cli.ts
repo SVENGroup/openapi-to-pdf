@@ -13,7 +13,7 @@ program
   .version("1.0.0")
 
 program
-  .argument('<input>', 'specify input openapi 3.0.x yaml file')
+  .argument('<input>', 'specify input openapi 3.0.x file')
   .option('-o, --output <output-file>', 'output file path', 'api-reference.pdf')
   .option('-t, --title <title>', 'title of the api reference document')
   .option('--subtitle <subtitle>', 'sub-title of the api reference document')
