@@ -89,7 +89,7 @@ export function generateSchemaTableMarkdown(
   } else if (schema.type === 'array') {
     endpoints_str += "||array|||The root schema is an array.|\n";
     endpoints_str += generateSchemaTableRowMarkdown(
-      '*',
+      '[*]',
       /** @ts-expect-error we resolve all references */
       schema.items!,
       required_properties,
@@ -310,7 +310,7 @@ export function generateNestedArraySchemaTableRowMarkdown(
   }
 
   endpoints_str += generateSchemaTableRowMarkdown(
-    base_key === '' ? '*' : `${base_key}.*`,
+    base_key === '' ? '[*]' : `${base_key}[*]`,
     /** @ts-expect-error we resolve all references */
     schema.items,
     undefined,
