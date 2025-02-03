@@ -77,7 +77,7 @@ To read more about how to configure your PDF output and the options available, s
 
 ## Contribution
 
-Read the [Contribution Guide](./docs/CONTRIBUTING) for details on how to contribute.
+Read the [Contribution Guide](./docs/CONTRIBUTING.md) for details on how to contribute.
 
 ## Acknowledgements
 

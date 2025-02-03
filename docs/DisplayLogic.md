@@ -2,13 +2,13 @@
 
 ## Operations and Tags
 
-The endpoints section list out all the operations (path + method) of your API. There are two ways this is displayed:
+The endpoints section list out all the operations (path + method) of your API. There are two scenarios that are considered:
 1. When you specify tags in at least one operations; and 
 2. When you don't use tags.
 
-**When tags are used in your API**, the operations are grouped by tags. Before listing our the operations under it, each tag section will also display the tag's `description` and `externalDocs.url` contents if these are specified in your OpenAPI schema. 
+**When tags are used in your API**, the operations are grouped by tags. Before listing out the operations under it, each tag section will display the tag's `description` and `externalDocs.url` contents if these are specified in your OpenAPI schema. 
 
-Operations which don't have any tags defined will be grouped into "tag" called `Others` at the very end. You can configure the naming of this "tag" using the `headings.untagged_operations` option (see [configuration](../README.md#configuration)).
+Operations which don't have any tags will be grouped into a "tag" called `Others` at the very end. You can configure the naming of this "tag" using the `headings.untagged_operations` option (see [configuration](./Configuration.md)).
 
 Additionally, if you specify multiple tags under an operation, that operation will be displayed under both tags so we don't recommend you do so.
 
