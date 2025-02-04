@@ -4,8 +4,6 @@ Create PDF API reference documentation from OpenAPI 3.0.x specification files.
 
 This tool works by first generating markdown content which is then converted into PDF.
 
-We created since we needed a NodeJS tool and the well loved [swagger2markup](https://github.com/Swagger2Markup/swagger2markup?tab=readme-ov-file) is written in Java and doesn't support OpenAPI v3 which we use internally at [The SVEN Group](https://svengroup.com).
-
 ## Sample PDF Output
 
 You may view the sample PDF output here: [`/samples/api-reference.pdf`](./samples/api-reference.pdf).
