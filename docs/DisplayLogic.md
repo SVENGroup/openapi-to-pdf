@@ -1,6 +1,6 @@
 # Display Logic
 
-This document outlines how this tool displays the OpenAPI schema.
+This document outlines how this tool displays the OpenAPI specification into a PDF.
 
 ## Table of Contents
 
@@ -8,13 +8,35 @@ A Table of contents (TOC) section is generated at the beginning of the PDF file 
 
 By default, the TOC lists all headings in the document. You can control this behavior by specifying a `max_toc_level` option in the [configuration](./Configuration.md).
 
+## Custom Sections
+
+If there's a need to include content that isn't part of the OpenAPI specification you can add custom sections to the PDF file. Specify `texts.pre_endpoints_section` or `texts.post_endpoints` section in your [configuration](./Configuration.md) to add custom content in markdown.
+
+This is useful for when you want to include process flows, guides, references, an annex, or any other content useful to the readers of your API documentation.
+
+Take note that these custom sections are added on separate pages and have page breaks before or after to separate them from adjacent sections.
+
+These sections are also included in the TOC so always start these with an H1 markdown text to denote the separate section. For example: 
+
+```markdown
+# Annex (Custom Section H1)
+
+Your actual content ...
+```
+
+If you wish to add page breaks within these sections (e.g. you're adding multiple sections), simply add the following in your markdown:
+
+```markdown
+<div class="page-break"></div>
+```
+
 ## Operations and Tags
 
 The endpoints section list out all the operations (path + method) of your API. There are two scenarios that are considered:
 1. When you specify tags in at least one operation; and 
 2. When you don't use tags.
 
-**When tags are used in your API**, the operations are grouped by tags. Before listing out the operations under it, each tag section will display the tag's `description` and `externalDocs.url` contents if these are specified in your OpenAPI schema. 
+**When tags are used in your API**, the operations are grouped by tags. Before listing out the operations under it, each tag section will display the tag's `description` and `externalDocs.url` contents if these are specified in your OpenAPI file. 
 
 Operations which don't have any tags will be grouped into a "tag" called `Others` at the very end. You can configure the naming of this "tag" using the `headings.untagged_operations` option (see [configuration](./Configuration.md)).
 

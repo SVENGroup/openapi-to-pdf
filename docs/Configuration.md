@@ -52,7 +52,7 @@ Here are the configuration options that you can set (none of these are required)
 
 Any options set through the command line interface take precedence over the configuration file like when using the `--title` and `--subtitle` options.
 
-All `string` type fields support Github Flavored Markdown.
+All `string` type fields support Markdown.
 
 When either the  `pdf_config.pdf_options.headerTemplate` or `pdf_config.pdf_options.footerTemplate` is defined, the default styling for the header and/or footer will be ignored. Thus, you must specify your own styling within those options similar to how it is defined in the `getPdfConfigWithHeaderFooter` function of [/src/config/index.ts](./src/config/index.ts).
 

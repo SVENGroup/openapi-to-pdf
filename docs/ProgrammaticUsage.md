@@ -16,9 +16,9 @@ Then you can import the functions and types (if using TypeScript):
 import { generateMarkdown, generatePdf, OpenAPIV3, Config} from '@svengroup/openapi-to-pdf';
 ```
 
-Both functions accept a schema object which must match the `OpenAPIV3.Document` interface.
+Both functions accept an object that must match the `OpenAPIV3.Document` interface.
 
-Both functions also accept a config object which must partially match the `Config` type. See [configuration](./Configuration.md) for more information about the options available.
+Both functions also optionally accept an object that partially matches the `Config` type. See [configuration](./Configuration.md) for more information about the options available.
 
 ## Generating a PDF file
 

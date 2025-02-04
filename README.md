@@ -54,7 +54,7 @@ openapi-to-pdf --help
 
 ## Display Logic
 
-To understand how this tool handles different scenarios in an OpenAPI schema, see [Display Logic](./docs/DisplayLogic.md).
+To understand how this tool displays the OpenAPI specification in PDF format, see [Display Logic](./docs/DisplayLogic.md).
 
 ## Configuration
 
