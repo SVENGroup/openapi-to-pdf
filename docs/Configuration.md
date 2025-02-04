@@ -10,7 +10,7 @@ You can configure the PDF output by specifying a configuration file in the comma
 openapi-to-pdf path/to/openapi.yaml --config path/to/config.json
 ```
 
-You can also pass an object that partially matches the `Config` type when using this tool programmatically.
+You can also pass an object that partially matches the `Config` type when [using this tool programmatically](./ProgrammaticUsage.md).
 
 ```ts
 import { generatePdf, Config} from '@svengroup/openapi-to-pdf';
