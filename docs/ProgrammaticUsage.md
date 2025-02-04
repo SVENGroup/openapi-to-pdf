@@ -38,7 +38,7 @@ const config: Partial<Config> = { max_toc_level: 3};
 
 const pdf_content = await generatePdf(schema, config);
 
-fs.writeFileSync(output_file, pdf_content);
+fs.writeFileSync('api-reference.pdf', pdf_content);
 
 ```
 
