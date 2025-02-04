@@ -24,7 +24,7 @@ Both functions also accept a config object which must partially match the `Confi
 
 You can use the `generatePdf` function to generate a PDF file similar to when using the cli. 
 
-This function returns a promise to a `Buffer<ArrayBufferLike>` which is the PDF's file contents. This can then be saved to the local storage for further use or even saved externally through an object storage service like S3.
+This function returns a promise to a `Buffer<ArrayBufferLike>` which is the PDF's file contents. This can then be saved to the local storage for further use or even saved externally to an object storage service like S3.
 
 ### Example:
 
