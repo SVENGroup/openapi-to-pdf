@@ -10,7 +10,7 @@ By default, the TOC lists all headings in the document. You can control this beh
 
 ## Custom Sections
 
-If there's a need to include content that isn't part of the OpenAPI specification you can add custom sections to the PDF file. Specify `texts.pre_endpoints_section` or `texts.post_endpoints` section in your [configuration](./Configuration.md) to add custom content in markdown.
+If there's a need to include content that isn't part of the OpenAPI specification, this tool lets you add custom sections to the PDF file. Specify `texts.pre_endpoints_section` or `texts.post_endpoints` section in your [configuration](./Configuration.md) to add custom content in markdown.
 
 This is useful for when you want to include process flows, guides, references, an annex, or any other content useful to the readers of your API documentation.
 
@@ -48,7 +48,7 @@ Operations which don't have any tags will be grouped into a "tag" called `Others
 
 Schemas are flattened into a single table by this tool. The **[JSON dot-notation](https://docs.oracle.com/en/database/oracle/oracle-database/19/adjsn/simple-dot-notation-access-to-json-data.html) is used** to indicate keys.
 
-For example, when this schema:
+For example, this schema:
 
 ```yaml
 post:
