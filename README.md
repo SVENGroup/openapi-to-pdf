@@ -8,7 +8,7 @@ This tool was created since we needed a NodeJS tool and the well loved [swagger2
 
 You may view the sample PDF output here: [`/samples/api-reference.pdf`](./samples/api-reference.pdf).
 
-It shows a PDF version of the sample OpenAPI file [`/samples/openapi.yaml`](./samples/openapi.yaml) with no custom [configuration](./docs/Configuration.md).
+It shows a PDF version of [`/samples/openapi.yaml`](./samples/openapi.yaml) with no [configuration options](./docs/Configuration.md).
 
 ## Inclusions
 
@@ -45,7 +45,7 @@ openapi-to-pdf path/to/openapi.yaml
 
 This will create an `api-reference.pdf` file in the same directory where the command was ran.
 
-To view the different options for the same command run the `--help` option:
+To view the different options for this tool, use the `--help` option:
 
 ```shell
 openapi-to-pdf --help
@@ -67,7 +67,15 @@ To read more about how to configure your PDF output and the options available, s
 
 ## Programmatic Usage
 
+You can also use this tool programmatically as a package in your Javascript and TypeScript projects:
 
+```ts
+import { generateMarkdown } from "@svengroup/openapi-to-pdf";
+
+const md = generateMarkdown({/* OpenAPI V3 Schema Object */});
+```
+
+To read more about using this tool programmatically, see [Programmatic Usage](./docs/ProgrammaticUsage.md)
 
 ## To Do's
 
@@ -81,8 +89,8 @@ Read the [Contribution Guide](./docs/CONTRIBUTING.md) for details on how to cont
 
 ## Acknowledgements
 
-This tool was built upon the opensource work of other developers, big thanks to:
+This tool was built upon the generous open source work of other developers, big thanks to:
 - [@simonhaenisch](https://github.com/simonhaenisch) for  [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf) which powers markdown to PDF conversion for this tool.
-- [@seriousme](https://github.com/seriousme) for [@seriousme/openapi-schema-validator](https://github.com/seriousme/openapi-schema-validator) which this tool uses to validate and process OpenAPI files.
+- [@seriousme](https://github.com/seriousme) for [@seriousme/openapi-schema-validator](https://github.com/seriousme/openapi-schema-validator) which this tool uses to validate and process OpenAPI files. The `OpenAPIV3.Document` interface is also directly from this package.
 - [TJ Holowaychuk](https://github.com/tj) for [commander.js](https://github.com/tj/commander.js) which made making the cli a lot easier.
 - All the other developers who worked on the packages we use for this tool!
