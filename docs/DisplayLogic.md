@@ -74,7 +74,9 @@ Is generated as:
 
 ## Handling `allOf` in a Schema
 
-When encountering `allOf`, this tool performs a deep merge of the array of schema objects within it. Every subsequent schema overwrites the previous schema when conflicting keys exist. Array properites (e.g. `required`) are concatenated.
+When encountering `allOf`, this tool performs a deep merge of the array of schema objects within it. 
+
+Every subsequent schema overwrites the previous schema when conflicting keys exist. Array properites (e.g. `required`) on the other hand, are concatenated.
 
 For example, this schema:
 
@@ -121,7 +123,7 @@ post:
                 type: string
 ```
 
-Generated this table:
+Generates this table:
 
 |Key|Type|Required|Example|Notes|
 |-|-|-|-|-|
@@ -151,7 +153,7 @@ post:
                 type: string
 ```
 
-Generated this table:
+Generates this table:
 
 |Key|Type|Required|Example|Notes|
 |-|-|-|-|-|
