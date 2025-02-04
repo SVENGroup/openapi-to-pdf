@@ -6,6 +6,7 @@ import generateCoverMarkdown from "@/markdown/cover";
 import { OpenAPIV3 } from "openapi-types";
 import generateEndpointsMarkdown from "@/markdown/endpoints";
 import { Config } from "@/types";
+import { generatePostEndpointsMarkdown, generatePreEndpointsMarkdown } from "./custom";
 
 export async function generateMarkdown(
   schema: OpenAPIV3.Document,
@@ -23,9 +24,13 @@ export async function generateMarkdown(
   full_str += `<div class="page-break"></div>`;
   full_str += "\n\n";
 
+  full_str += generatePreEndpointsMarkdown(config);
+
   /* ENDPOINTS */
   const endpoints_md = generateEndpointsMarkdown(schema, config);
   full_str += endpoints_md;
+
+  full_str += generatePostEndpointsMarkdown(config);
 
   /* TOC */
   if (config?.include_toc) {

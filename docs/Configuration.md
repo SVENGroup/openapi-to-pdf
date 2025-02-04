@@ -46,6 +46,8 @@ Here are the configuration options that you can set (none of these are required)
 |texts.info|string||Additional descriptive / introductory text. Shows up under the information section after the contents of the OpenAPI `info.description` attribute.<ul><li>default: `Contents`</li><ul>|
 |texts.header|string||Text that appears in the header section of all pages.<ul><li>default: `undefined`</li><ul>||
 |texts.footer|string||Text that appears in the footer section of all pages.<ul><li>default: `undefined`</li><ul>||
+|texts.pre_endpoints_section|string|`# Guides \n\n Here's how to ...`|Additional section that shows up on a separate page before the endpoints section. This is useful for including process flows or guides in your documentation.<ul><li>default: `undefined`</li><ul>||
+|texts.post_endpoints_section|string|`# Annex \n\n 1. Lorem ipsum`|Additional section that shows up on a separate page after the endpoints section. This is useful for including external references, acknowledgements or an annex.<ul><li>default: `undefined`</li><ul>||
 |pdf_config|object||PDF Configuration as specified by [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf). The default configuration creates an A4 PDF document with 15mm margins all around.|
 
 Any options set through the command line interface take precedence over the configuration file like when using the `--title` and `--subtitle` options.

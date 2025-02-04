@@ -30,6 +30,10 @@ export type Config = {
      * Additional descriptive information / introductory text. Shows up under the General Information section after `info.description` from the OpenAPI schema.
      * */
     info: string,
+    /* Additional section that shows up on a separate page before the endpoints section. */
+    pre_endpoints_section: string,
+    /* Additional section that shows up on a separate page after the endpoints section. */
+    post_endpoints_section: string,
     /** Header text for all pages. */
     header: string,
     /** Footer text for all pages. */

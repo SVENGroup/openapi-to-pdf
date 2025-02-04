@@ -21,6 +21,7 @@ This tool includes the following:
     - Cover page
     - Table of contents
     - Headings and texts
+    - Custom Sections
     - PDF settings (thanks to [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf))
 - Programmatic usage with markdown output
 - TypeScript support
