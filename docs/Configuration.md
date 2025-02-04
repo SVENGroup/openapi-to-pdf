@@ -13,13 +13,13 @@ openapi-to-pdf path/to/openapi.yaml --config path/to/config.json
 You can also pass an object that partially matches the `Config` type when [using this tool programmatically](./ProgrammaticUsage.md).
 
 ```ts
-import { generatePdf, Config} from '@svengroup/openapi-to-pdf';
+import { generatePdf, OpenAPIV3, Config} from '@svengroup/openapi-to-pdf';
 
 const config: Partial<Config> = {
     max_toc_level: 3
 }
 
-const schema = {/* OpenAPI V3 Schema */};
+const schema: OpenAPIV3.Document = {/* OpenAPI V3 Schema */};
 
 const pdf_contents = generatePdf(schema, config);
 
