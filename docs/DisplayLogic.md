@@ -134,7 +134,7 @@ Generates this table:
 
 When encountering `anyOf` or `oneOf`, the table will display the options available and how the options must be handled by consumers of your API.
 
-For example, when this schema:
+For example, this schema:
 
 ```yaml
 post:
