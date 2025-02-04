@@ -21,7 +21,7 @@ const config: Partial<Config> = {
 
 const schema: OpenAPIV3.Document = {/* OpenAPI V3 Schema */};
 
-const pdf_contents = generatePdf(schema, config);
+const pdf_contents = await generatePdf(schema, config);
 
 ```
 
