@@ -5,3 +5,4 @@ export { Toc } from "./Toc";
 export { Operations } from "./Operations";
 export { UntaggedOperations } from "./UntaggedOperations";
 export { SecuritySchemeType } from "./SecuritySchemeType";
+export { OpenAPIV3 } from "openapi-types"
