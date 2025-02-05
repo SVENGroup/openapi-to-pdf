@@ -8,7 +8,7 @@ This tool works by first generating markdown content which is then converted int
 
 You may view the sample PDF output here: [`/samples/api-reference.pdf`](./samples/api-reference.pdf).
 
-It shows a PDF version of [`/samples/openapi.yaml`](./samples/openapi.yaml) when no [configuration options](./docs/Configuration.md) are set.
+It shows a PDF version of [`/samples/openapi.yaml`](./samples/openapi.yaml) when the configuration at [`/samples/config.json`](./samples/config.json) is used.
 
 ## Inclusions
 

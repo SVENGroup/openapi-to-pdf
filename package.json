@@ -1,6 +1,6 @@
 {
     "name": "@svengroup/openapi-to-pdf",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Create PDF API reference documentation from OpenAPI 3.0.x specification files.",
     "keywords": [
         "openapi",
