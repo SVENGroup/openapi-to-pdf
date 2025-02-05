@@ -1,0 +1,29 @@
+name: Lint Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.18.0
+
+      # Install Node.js dependencies
+      - name: Install Node.js dependencies
+        run: npm install
+
+      # Run NPM lint
+      - name: Run NPM lint
+        run: npm run lint

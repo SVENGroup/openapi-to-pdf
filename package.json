@@ -12,7 +12,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/SVENGroup/openapi-to-pdf.git"
+        "url": "https://github.com/SVENGroup/openapi-to-pdf.git"
     },
     "author": {
         "name": "The SVEN Group",
@@ -28,6 +28,17 @@
     "types": "dist/index.d.ts",
     "bin": {
         "openapi-to-pdf": "dist/cli.js"
+    },
+    "files": [
+        "dist",
+        "docs",
+        "README.md",
+        "LICENSE",
+        "package.json",
+        "package-lock.json"
+    ],
+    "publishConfig": {
+        "access": "public"
     },
     "scripts": {
         "build": "tsc && tsc-alias",
