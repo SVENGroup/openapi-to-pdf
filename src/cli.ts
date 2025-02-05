@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import 'tsconfig-paths/register.js';
 import { program } from "commander";
 import { generatePdf } from '@/pdf';
 import { getConfigFromFile } from '@/config';
