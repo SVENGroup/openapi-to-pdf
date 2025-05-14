@@ -96,7 +96,7 @@ export function generateBasicMarkdown(security_schemes: SecuritySchemes): string
 export function generateBearerMarkdown(security_schemes: SecuritySchemes): string {
   let sec_str = "";
 
-  const match = getMatchingSecuritySchemes(security_schemes, 'http', 'basic');
+  const match = getMatchingSecuritySchemes(security_schemes, 'http', 'bearer');
 
   if (Object.keys(match).length > 0) {
     const security_scheme = Object.entries(match)[0][1]
